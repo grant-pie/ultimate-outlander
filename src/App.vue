@@ -272,6 +272,31 @@ function parseInput () {
 
 /*  End Parsing  */
 
+function downloadJSON(jsonObject, fileName) {
+    // Convert JSON object to string
+    const jsonString = JSON.stringify(jsonObject, null, 2);
+
+    // Create a Blob from the JSON string
+    const blob = new Blob([jsonString], { type: "application/json" });
+
+    // Create a link element
+    const link = document.createElement("a");
+
+    // Set the download attribute with the filename
+    link.download = fileName;
+
+    // Create a URL for the Blob and set it as the href attribute
+    link.href = URL.createObjectURL(blob);
+
+    // Append the link to the document
+    document.body.appendChild(link);
+
+    // Programmatically click the link to trigger the download
+    link.click();
+
+    // Remove the link from the document
+    document.body.removeChild(link);
+}
 
 </script>
 
@@ -325,6 +350,8 @@ function parseInput () {
         <ItemsTable 
         :items="items"
         />
+
+        <button v-show="items.length > 1" type="button" class="btn btn-primary" @click="downloadJSON(items, 'items.json')">Export</button>
 
       </Card>
 
