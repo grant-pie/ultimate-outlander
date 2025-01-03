@@ -1,6 +1,9 @@
 <script setup>
 import { ref, watch } from 'vue'
+
 import Card from './components/Card.vue'
+import ItemsTable from './components/ItemsTable.vue';
+import ContainerContentsTable from './components/ContainerContentsTable.vue';
 
 const input = ref('');
 const msg = ref('');
@@ -221,8 +224,7 @@ function parseInput () {
  
          if(parsedItems.length > 0) {
  
-           parsedItems.forEach((parsedItem) => {    
-               let item = {};
+          let item = {};
                const existingItem = items.value.find(existingItem => existingItem.description === parsedItem.description);
                
                if(existingItem){
@@ -242,13 +244,8 @@ function parseInput () {
  
                contents.push({
                  item: item,
-                 qty:parsedItem.qty,
-                 total: function() {
-                   return this.item.price * this.qty
-                 }
+                 qty:parsedItem.qty
                });
- 
-           });
  
          }
        });
@@ -264,7 +261,9 @@ function parseInput () {
  
      });
  
-     console.log(containers);
+     console.log({
+      items,containers
+     });
  
      return 1;
    }
@@ -287,25 +286,25 @@ function parseInput () {
       cardHeader="Parser"
       >
 
-      <form>
-                    
-        <div class="mb-3">
+        <form>
+                      
+          <div class="mb-3">
 
-            <label for="floatingTextarea" class="form-label">Text: </label>
+              <label for="floatingTextarea" class="form-label">Text: </label>
 
-            <textarea  class="form-control" placeholder="Paste journal text here"
-            v-model="input" 
-            ></textarea>
+              <textarea  class="form-control" placeholder="Paste journal text here"
+              v-model="input" 
+              ></textarea>
 
-            <div  class="form-text">Input text here.</div>
+              <div  class="form-text">Input text here.</div>
 
-            <div  class="form-text text-muted" ><p>{{ msg }}</p></div>
+              <div  class="form-text text-muted" ><p>{{ msg }}</p></div>
 
-        </div>
-        
-        <button type="button" class="btn btn-primary" @click="parseInput()">Parse</button>
+          </div>
+          
+          <button type="button" class="btn btn-primary" @click="parseInput()">Parse</button>
 
-    </form>
+        </form>
     
       </Card>
 
@@ -323,7 +322,9 @@ function parseInput () {
       cardHeader="Items"
       >
 
-        <!--table-->
+        <ItemsTable 
+        :items="items"
+        />
 
       </Card>
 
@@ -331,19 +332,22 @@ function parseInput () {
 
   </div>
   <!-- container table-->
-  <div class="row">
+  <div 
+  v-for="container in containers" :key="container.id"
+  class="row">
 
     <div class="col-12">
 
+    <Card
+    :cardHeader="containers.id"
+    >
 
-      <Card
-      cardHeader="Containers"
-      >
+      <ContainerContentsTable
+      :containerContents="container.contents"
+      />
+    
+    </Card>
 
-        <!--table-->
-
-
-      </Card>
 
     </div>
 
