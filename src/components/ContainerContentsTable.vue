@@ -1,7 +1,7 @@
 <template>
   <div>
     <table class="table table-striped table-hover">
-      <thead class="table-dark">
+      <thead>
         <tr>
           <th scope="col">Item Description</th>
           <th scope="col">Quantity</th>
