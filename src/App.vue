@@ -301,83 +301,88 @@ function downloadJSON(jsonObject, fileName) {
 </script>
 
 <template>
-  <!--input-->   
-  <div class="row">
+  <div>
 
-    <div class="col-12">
+    <!--input-->   
+    <div class="row">
 
+      <div class="col-12">
+
+
+        <Card
+        cardHeader="Parser"
+        >
+
+          <form>
+                        
+            <div class="mb-3">
+
+                <label for="floatingTextarea" class="form-label">Text: </label>
+
+                <textarea  class="form-control" placeholder="Paste journal text here"
+                v-model="input" 
+                ></textarea>
+
+                <div  class="form-text">Input text here.</div>
+
+                <div  class="form-text text-muted" ><p>{{ msg }}</p></div>
+
+            </div>
+            
+            <button type="button" class="btn btn-primary" @click="parseInput()">Parse</button>
+
+          </form>
+
+        </Card>
+
+      </div>
+
+      </div>
+
+      <!-- items table -->
+      <div class="row">
+
+      <div class="col-12">
+
+
+        <Card
+        cardHeader="Items"
+        >
+
+          <ItemsTable 
+          :items="items"
+          />
+
+          <button v-show="items.length > 1" type="button" class="btn btn-primary" @click="downloadJSON(items, 'items.json')">Export</button>
+
+        </Card>
+
+      </div>
+
+      </div>
+      <!-- container table-->
+      <div 
+      v-for="container in containers" :key="container.id"
+      class="row">
+
+      <div class="col-12">
 
       <Card
-      cardHeader="Parser"
+      :cardHeader="containers.id"
       >
 
-        <form>
-                      
-          <div class="mb-3">
-
-              <label for="floatingTextarea" class="form-label">Text: </label>
-
-              <textarea  class="form-control" placeholder="Paste journal text here"
-              v-model="input" 
-              ></textarea>
-
-              <div  class="form-text">Input text here.</div>
-
-              <div  class="form-text text-muted" ><p>{{ msg }}</p></div>
-
-          </div>
-          
-          <button type="button" class="btn btn-primary" @click="parseInput()">Parse</button>
-
-        </form>
-    
-      </Card>
-
-    </div>
-
-  </div>
-
-  <!-- items table -->
-  <div class="row">
-
-    <div class="col-12">
-
-
-      <Card
-      cardHeader="Items"
-      >
-
-        <ItemsTable 
-        :items="items"
+        <ContainerContentsTable
+        :containerContents="container.contents"
         />
 
-        <button v-show="items.length > 1" type="button" class="btn btn-primary" @click="downloadJSON(items, 'items.json')">Export</button>
-
       </Card>
 
-    </div>
 
-  </div>
-  <!-- container table-->
-  <div 
-  v-for="container in containers" :key="container.id"
-  class="row">
-
-    <div class="col-12">
-
-    <Card
-    :cardHeader="containers.id"
-    >
-
-      <ContainerContentsTable
-      :containerContents="container.contents"
-      />
-    
-    </Card>
-
+      </div>
 
     </div>
 
   </div>
+  
 </template>
 
