@@ -14,13 +14,13 @@
           <td>
             <p>{{  content.qty }}</p>
           </td>
-          <td>{{ calculateTotal(content.item.price, content.qty) | currency }}</td>
+          <td>{{ calculateTotal(content.item.price, content.qty)  }}</td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="2" class="text-end"><strong>Grand Total:</strong></td>
-          <td>{{ grandTotal | currency }}</td>
+          <td>{{ grandTotal }}</td>
         </tr>
       </tfoot>
     </table>
@@ -61,7 +61,7 @@ export default {
     },
     calculateTotal(price, qty) {
       return price * qty;
-    },
+    }
   },
   filters: {
     currency(value) {

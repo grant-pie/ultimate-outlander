@@ -5,6 +5,7 @@
           <tr>
             <th scope="col">Description</th>
             <th scope="col">Price</th>
+            <th scope="col">Link</th>
           </tr>
         </thead>
         <tbody>
@@ -17,6 +18,15 @@
                 v-model.number="item.price"
                 @input="updateItemPrice(index, item.price)"
               />
+            </td>
+            <td>
+              <a
+                :href="generateLink(item.description)"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button class="btn btn-primary">Link</button>
+              </a>
             </td>
           </tr>
         </tbody>
@@ -46,6 +56,12 @@
           { ...this.items[index], price },
           ...this.items.slice(index + 1),
         ]);
+      },
+      generateLink(description) {
+        const baseUrl = "https://portal.uooutlands.com/vendor-search?searchTerm=";
+        const query = encodeURIComponent(description);
+        const sortParams = "&sortActive=Price&sortDirection=asc";
+        return `${baseUrl}${query}${sortParams}`;
       },
     },
   };

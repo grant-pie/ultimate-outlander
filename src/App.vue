@@ -192,10 +192,10 @@ function parseInput () {
      return 0;
    }
  
-   const requiredProps = ["description", "price", "link"];
+   const requiredProps = ["description", "price"];
    if(validateJSON(input.value, requiredProps).valid){
      msg.value = "valid json";
-     items.value = JSON.parse( input.value);
+     items.value = JSON.parse(input.value);
      console.log(items)
      return 1
    }
