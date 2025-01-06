@@ -14,6 +14,7 @@
         <tr>
           <th scope="col">Description</th>
           <th scope="col">Price</th>
+          <th scope="col">Qty</th>
           <th scope="col">Link</th>
         </tr>
       </thead>
@@ -28,6 +29,7 @@
               @input="updateItemPrice(index, item.price)"
             />
           </td>
+          <td> {{ item.qty }} </td>
           <td>
             <a
               :href="generateLink(item.description)"
@@ -54,7 +56,8 @@ export default {
         items.every(
           (item) =>
             typeof item.description === "string" &&
-            typeof item.price === "number"
+            typeof item.price === "number" &&
+            typeof item.qty === "number"
         ),
     },
   },

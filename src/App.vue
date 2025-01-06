@@ -1,9 +1,11 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import Card from './components/Card.vue'
 import ItemsTable from './components/ItemsTable.vue';
 import ContainerContentsTable from './components/ContainerContentsTable.vue';
+
+import weapons from "./data/weapons.json";
 
 const input = ref('');
 const msg = ref('');
@@ -11,6 +13,9 @@ const msg = ref('');
 const items = ref([]);
 const containers = ref([]);
 
+onMounted(() => {
+  console.log(weapons);
+});
 
 /*  Parsing  */
 function parseId(logData) {
@@ -94,9 +99,9 @@ function parseItems(logData) {
             if (idMatch) {
 
                 items.push({
-                description,
-                id: idMatch[1],
-                qty: parseInt(qty), // Add the amount property
+                  description,
+                  id: idMatch[1],
+                  qty: parseInt(qty), // Add the amount property
                 });
 
             }
@@ -228,14 +233,15 @@ function parseInput () {
                const existingItem = items.value.find(existingItem => existingItem.description === parsedItem.description);
                
                if(existingItem){
- 
-                 item = existingItem;
+                existingItem.qty = existingItem.qty + parsedItem.qty
+                item = existingItem;
            
                } else {
  
                  item = {
                      description: parsedItem.description,
-                     price: 0
+                     price: 0,
+                     qty: 1
                  };
                    
                  items.value.push(item);
@@ -368,7 +374,7 @@ function downloadJSON(jsonObject, fileName) {
       <div class="col-12">
 
       <Card
-      :cardHeader="containers.id"
+      :cardHeader="container.id + ' | ' + parseInt(container.id).toString(16)"
       >
 
         <ContainerContentsTable

@@ -1,0 +1,107 @@
+{
+    "Weapons": [
+        {
+        "Category": "Durability",
+        "Modifiers": [
+            { "Modifier": "Durable", "Bonus": "+20" },
+            { "Modifier": "Substantial", "Bonus": "+40" },
+            { "Modifier": "Massive", "Bonus": "+60" },
+            { "Modifier": "Fortified", "Bonus": "+80" },
+            { "Modifier": "Indestructible", "Bonus": "+100" }
+        ]
+        },
+        {
+        "Category": "Accuracy",
+        "Modifiers": [
+            { "Modifier": "Exceptional", "PvM": "+3%", "PvP": "+0%" },
+            { "Modifier": "Accurate", "PvM": "+5%", "PvP": "+1%" },
+            { "Modifier": "Surpassingly Accurate", "PvM": "+10%", "PvP": "+2%" },
+            { "Modifier": "Eminently Accurate", "PvM": "+15%", "PvP": "+3%" },
+            { "Modifier": "Exceedingly Accurate", "PvM": "+20%", "PvP": "+4%" },
+            { "Modifier": "Supremely Accurate", "PvM": "+25%", "PvP": "+5%" }
+        ]
+        },
+        {
+        "Category": "Damage",
+        "Modifiers": [
+            { "Modifier": "Ruin", "Bonus": "+5" },
+            { "Modifier": "Exceptional/Might", "Bonus": "+10" },
+            { "Modifier": "Force", "Bonus": "+15" },
+            { "Modifier": "Power", "Bonus": "+20" },
+            { "Modifier": "Vanquishing", "Bonus": "+25" }
+        ]
+        },
+        {
+        "Category": "Slayer",
+        "Modifiers": [
+            { "Modifier": "Lesser Slaying", "Bonus": "+15%" },
+            { "Modifier": "Slaying", "Bonus": "+20%" },
+            { "Modifier": "Greater Slaying", "Bonus": "+25%" }
+        ]
+        }
+    ],
+    "Armor": [
+        {
+        "Category": "Durability",
+        "Modifiers": [
+            { "Modifier": "Durable", "Bonus": "+20" },
+            { "Modifier": "Exceptional", "Bonus": "+25" },
+            { "Modifier": "Substantial", "Bonus": "+40" },
+            { "Modifier": "Mastercrafted", "Bonus": "+50" },
+            { "Modifier": "Massive", "Bonus": "+60" },
+            { "Modifier": "Fortified", "Bonus": "+80" },
+            { "Modifier": "Indestructible", "Bonus": "+100" }
+        ]
+        },
+        {
+        "Category": "Protection",
+        "Modifiers": [
+            { "Modifier": "Defense", "Bonus": "+20%" },
+            { "Modifier": "Guarding", "Bonus": "+40%" },
+            { "Modifier": "Hardening", "Bonus": "+60%" },
+            { "Modifier": "Fortification", "Bonus": "+80%" },
+            { "Modifier": "Invulnerability", "Bonus": "+100%" }
+        ]
+        }
+    ],
+    "Spellbooks": [
+        {
+        "Category": "Durability",
+        "Modifier": [
+            { "Modifier": "Durable", "Bonus": "+100" },
+            { "Modifier": "Substantial", "Bonus": "+150" },
+            { "Modifier": "Massive", "Bonus": "+200" },
+            { "Modifier": "Fortified", "Bonus": "+250" },
+            { "Modifier": "Indestructible", "Bonus": "+300" }
+        ]
+        },
+        {
+        "Category": "Potency",
+        "Modifier": [
+            { "Modifier": "Potent", "Bonus": "+5%" },
+            { "Modifier": "Surpassingly Potent", "Bonus": "+10%" },
+            { "Modifier": "Eminently Potent", "Bonus": "+15%" },
+            { "Modifier": "Exceedingly Potent", "Bonus": "+20%" },
+            { "Modifier": "Supremely Potent", "Bonus": "+25%" }
+        ]
+        },
+        {
+        "Category": "Damage",
+        "Modifier": [
+            { "Modifier": "Ruin", "Bonus": "+5%" },
+            { "Modifier": "Might", "Bonus": "+10%" },
+            { "Modifier": "Force", "Bonus": "+15%" },
+            { "Modifier": "Power", "Bonus": "+20%" },
+            { "Modifier": "Vanquishing", "Bonus": "+25%" }
+        ]
+        },
+        {
+        "Category": "Slayer",
+        "Modifier": [
+            { "Modifier": "Lesser", "Bonus": "+15%" },
+            { "Modifier": "Slaying", "Bonus": "+20%" },
+            { "Modifier": "Greater", "Bonus": "+25%" }
+        ]
+        }
+    ]
+}
