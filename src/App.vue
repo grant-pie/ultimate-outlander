@@ -373,7 +373,7 @@ function downloadJSON(jsonObject, fileName) {
 
         <ContainerContentsTable
         :containerContents="container.contents"
-        />
+        />        
 
       </Card>
 
@@ -383,6 +383,6 @@ function downloadJSON(jsonObject, fileName) {
     </div>
 
   </div>
-  
+
 </template>
 

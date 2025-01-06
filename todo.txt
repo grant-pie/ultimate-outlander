@@ -1,0 +1,4 @@
+*remove item from items
+*remove item from container 
+*remove container
+*grab item script copy
