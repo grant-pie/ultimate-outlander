@@ -5,17 +5,13 @@ import Card from './components/Card.vue'
 import ItemsTable from './components/ItemsTable.vue';
 import ContainerContentsTable from './components/ContainerContentsTable.vue';
 
-import weapons from "./data/weapons.json";
+import ItemTypes from "./data/item_types.json";
 
 const input = ref('');
 const msg = ref('');
 
 const items = ref([]);
 const containers = ref([]);
-
-onMounted(() => {
-  console.log(weapons);
-});
 
 /*  Parsing  */
 function parseId(logData) {
@@ -233,20 +229,22 @@ function parseInput () {
                const existingItem = items.value.find(existingItem => existingItem.description === parsedItem.description);
                
                if(existingItem){
+                //the item exists and we should update its qty
                 existingItem.qty = existingItem.qty + parsedItem.qty
                 item = existingItem;
            
                } else {
- 
+                //the item does not exist and should be added
                  item = {
                      description: parsedItem.description,
+                     type: getItemType(parsedItem.description),
                      price: 0,
-                     qty: 1
+                     qty: 1,
                  };
                    
                  items.value.push(item);
                }
- 
+               
  
                contents.push({
                  item: item,
@@ -304,6 +302,15 @@ function downloadJSON(jsonObject, fileName) {
     document.body.removeChild(link);
 }
 
+//TODO: this should maybe be category and not type
+function getItemType(itemDescription) {
+  for (const [type, itemsOfType] of Object.entries(ItemTypes)) {
+    if (itemsOfType.some(item => itemDescription.includes(item))) {
+      return type;
+    }
+  }
+  return -1;
+}
 </script>
 
 <template>

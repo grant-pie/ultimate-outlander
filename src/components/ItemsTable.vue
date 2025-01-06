@@ -13,6 +13,7 @@
       <thead>
         <tr>
           <th scope="col">Description</th>
+          <th scope="col">Type</th>
           <th scope="col">Price</th>
           <th scope="col">Qty</th>
           <th scope="col">Link</th>
@@ -21,6 +22,7 @@
       <tbody>
         <tr v-for="(item, index) in filteredItems" :key="index">
           <td>{{ item.description }}</td>
+          <td>{{ item.type }}</td>
           <td>
             <input
               type="number"
@@ -56,6 +58,7 @@ export default {
         items.every(
           (item) =>
             typeof item.description === "string" &&
+            typeof item.type === "string" &&
             typeof item.price === "number" &&
             typeof item.qty === "number"
         ),

@@ -1,0 +1,290 @@
+{
+    "ingots": [
+        {
+            "material": "iron",
+            "durability": "+0",
+            "armor": "+0%",
+            "tactics": "+0",
+            "accuracy": "+0%"
+        },
+        {
+            "material": "exceptional",
+            "durability": "+0",
+            "armor": "+40%",
+            "tactics": "+10",
+            "accuracy": "+3%"
+        },
+        {
+            "material": "dull copper",
+            "durability": "+15",
+            "armor": "+5%",
+            "tactics": "+1",
+            "accuracy": "+1%"
+        },
+        {
+            "material": "shadow",
+            "durability": "+20",
+            "armor": "+10%",
+            "tactics": "+2",
+            "accuracy": "+2%"
+        },
+        {
+            "material": "copper",
+            "durability": "+25",
+            "armor": "+15%",
+            "tactics": "+3",
+            "accuracy": "+3%"
+        },
+        {
+            "material": "bronze",
+            "durability": "+30",
+            "armor": "+20%",
+            "tactics": "+4",
+            "accuracy": "+4%"
+        },
+        {
+            "material": "gold",
+            "durability": "+35",
+            "armor": "+25%",
+            "tactics": "+5",
+            "accuracy": "+5%"
+        },
+        {
+            "material": "agapite",
+            "durability": "+40",
+            "armor": "+30%",
+            "tactics": "+6",
+            "accuracy": "+6%"
+        },
+        {
+            "material": "verite",
+            "durability": "+45",
+            "armor": "+35%",
+            "tactics": "+7",
+            "accuracy": "+7%"
+        },
+        {
+            "material": "valorite",
+            "durability": "+50",
+            "armor": "+40%",
+            "tactics": "+8",
+            "accuracy": "+8%"
+        },
+        {
+            "material": "avarite",
+            "durability": "+55",
+            "armor": "+45%",
+            "tactics": "+9",
+            "accuracy": "+9%"
+        }
+    ],
+    "leathers": [
+        {
+            "material": "leather",
+            "durability": "+0",
+            "armor": "+0",
+            "manaregen": "+0",
+            "spellbook_damage": "+0",
+            "fishing": "+0%"
+        },
+        {
+            "material": "exceptional",
+            "durability": "+0",
+            "armor": "+40%",
+            "manaregen": "+10%",
+            "spellbook_damage": "+10",
+            "fishing": "+4%"
+        },
+        {
+            "material": "mastercrafted",
+            "durability": "+0",
+            "armor": "+0",
+            "manaregen": "+0",
+            "spellbook_damage": "+0",
+            "fishing": "+8%"
+        },
+        {
+            "material": "dullhide",
+            "durability": "+15",
+            "armor": "+5%",
+            "manaregen": "+10%",
+            "spellbook_damage": "+1",
+            "fishing": "+2%"
+        },
+        {
+            "material": "shadowhide",
+            "durability": "+20",
+            "armor": "+10%",
+            "manaregen": "+15%",
+            "spellbook_damage": "+2",
+            "fishing": "+4%"
+        },
+        {
+            "material": "copperhide",
+            "durability": "+25",
+            "armor": "+15%",
+            "manaregen": "+20%",
+            "spellbook_damage": "+3",
+            "fishing": "+6%"
+        },
+        {
+            "material": "bronzehide",
+            "durability": "+30",
+            "armor": "+20%",
+            "manaregen": "+25%",
+            "spellbook_damage": "+4",
+            "fishing": "+8%"
+        },
+        {
+            "material": "goldenhide",
+            "durability": "+35",
+            "armor": "+25%",
+            "manaregen": "+30%",
+            "spellbook_damage": "+5",
+            "fishing": "+10%"
+        },
+        {
+            "material": "rosehide",
+            "durability": "+40",
+            "armor": "+30%",
+            "manaregen": "+35%",
+            "spellbook_damage": "+6",
+            "fishing": "+12%"
+        },
+        {
+            "material": "verehide",
+            "durability": "+45",
+            "armor": "+35%",
+            "manaregen": "+45%",
+            "spellbook_damage": "+7",
+            "fishing": "+14%"
+        },
+        {
+            "material": "valehide",
+            "durability": "+50",
+            "armor": "+40%",
+            "manaregen": "+50%",
+            "spellbook_damage": "+8",
+            "fishing": "+16%"
+        },
+        {
+            "material": "avarhide",
+            "durability": "+55",
+            "armor": "+45%",
+            "manaregen": "+55%",
+            "spellbook_damage": "+9",
+            "fishing": "+18%"
+        }
+    ],
+    "boards": [
+        {
+            "material": "regular",
+            "durability": "+0",
+            "armor": "+0",
+            "tactics": "+0",
+            "accuracy": "+0",
+            "bardskill": "+0",
+            "fishing": "+0%"
+        },
+        {
+            "material": "exceptional",
+            "durability": "+0",
+            "armor": "+40%",
+            "tactics": "+10",
+            "accuracy": "+3%",
+            "bardskill": "+5",
+            "fishing": "+0%"
+        },
+        {
+            "material": "mastercrafted",
+            "durability": "+0",
+            "armor": "+0",
+            "tactics": "+0",
+            "accuracy": "+0",
+            "bardskill": "+0",
+            "fishing": "+8%"
+        },
+        {
+            "material": "dullwood",
+            "durability": "+15",
+            "armor": "+5%",
+            "tactics": "+1",
+            "accuracy": "+1%",
+            "bardskill": "+3",
+            "fishing": "+2%"
+        },
+        {
+            "material": "shadowwood",
+            "durability": "+20",
+            "armor": "+10%",
+            "tactics": "+2",
+            "accuracy": "+2%",
+            "bardskill": "+4",
+            "fishing": "+4%"
+        },
+        {
+            "material": "copperwood",
+            "durability": "+25",
+            "armor": "+15%",
+            "tactics": "+3",
+            "accuracy": "+3%",
+            "bardskill": "+5",
+            "fishing": "+6%"
+        },
+        {
+            "material": "bronzewood",
+            "durability": "+30",
+            "armor": "+20%",
+            "tactics": "+4",
+            "accuracy": "+4%",
+            "bardskill": "+6",
+            "fishing": "+8%"
+        },
+        {
+            "material": "goldenwood",
+            "durability": "+35",
+            "armor": "+25%",
+            "tactics": "+5",
+            "accuracy": "+5%",
+            "bardskill": "+7",
+            "fishing": "+10%"
+        },
+        {
+            "material": "rosewood",
+            "durability": "+40",
+            "armor": "+30%",
+            "tactics": "+6",
+            "accuracy": "+6%",
+            "bardskill": "+8",
+            "fishing": "+12%"
+        },
+        {
+            "material": "verewood",
+            "durability": "+45",
+            "armor": "+35%",
+            "tactics": "+7",
+            "accuracy": "+7%",
+            "bardskill": "+9",
+            "fishing": "+14%"
+        },
+        {
+            "material": "valewood",
+            "durability": "+50",
+            "armor": "+40%",
+            "tactics": "+8",
+            "accuracy": "+8%",
+            "bardskill": "+10",
+            "fishing": "+16%"
+        },
+        {
+            "material": "avarwood",
+            "durability": "+55",
+            "armor": "+45%",
+            "tactics": "+9",
+            "accuracy": "+9%",
+            "bardskill": "+11",
+            "fishing": "+18%"
+        }
+    ]
+  }
+  

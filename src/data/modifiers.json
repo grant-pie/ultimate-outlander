@@ -1,107 +1,107 @@
 {
-    "Weapons": [
+    "weapons": [
         {
-        "Category": "Durability",
-        "Modifiers": [
-            { "Modifier": "Durable", "Bonus": "+20" },
-            { "Modifier": "Substantial", "Bonus": "+40" },
-            { "Modifier": "Massive", "Bonus": "+60" },
-            { "Modifier": "Fortified", "Bonus": "+80" },
-            { "Modifier": "Indestructible", "Bonus": "+100" }
-        ]
+            "category": "durability",
+            "modifiers": [
+                { "modifier": "durable", "bonus": "+20" },
+                { "modifier": "substantial", "bonus": "+40" },
+                { "modifier": "massive", "bonus": "+60" },
+                { "modifier": "fortified", "bonus": "+80" },
+                { "modifier": "indestructible", "bonus": "+100" }
+            ]
         },
         {
-        "Category": "Accuracy",
-        "Modifiers": [
-            { "Modifier": "Exceptional", "PvM": "+3%", "PvP": "+0%" },
-            { "Modifier": "Accurate", "PvM": "+5%", "PvP": "+1%" },
-            { "Modifier": "Surpassingly Accurate", "PvM": "+10%", "PvP": "+2%" },
-            { "Modifier": "Eminently Accurate", "PvM": "+15%", "PvP": "+3%" },
-            { "Modifier": "Exceedingly Accurate", "PvM": "+20%", "PvP": "+4%" },
-            { "Modifier": "Supremely Accurate", "PvM": "+25%", "PvP": "+5%" }
-        ]
+            "category": "accuracy",
+            "modifiers": [
+                { "modifier": "exceptional", "pvm": "+3%", "pvp": "+0%" },
+                { "modifier": "accurate", "pvm": "+5%", "pvp": "+1%" },
+                { "modifier": "surpassingly accurate", "pvm": "+10%", "pvp": "+2%" },
+                { "modifier": "eminently accurate", "pvm": "+15%", "pvp": "+3%" },
+                { "modifier": "exceedingly accurate", "pvm": "+20%", "pvp": "+4%" },
+                { "modifier": "supremely accurate", "pvm": "+25%", "pvp": "+5%" }
+            ]
         },
         {
-        "Category": "Damage",
-        "Modifiers": [
-            { "Modifier": "Ruin", "Bonus": "+5" },
-            { "Modifier": "Exceptional/Might", "Bonus": "+10" },
-            { "Modifier": "Force", "Bonus": "+15" },
-            { "Modifier": "Power", "Bonus": "+20" },
-            { "Modifier": "Vanquishing", "Bonus": "+25" }
-        ]
+            "category": "damage",
+            "modifiers": [
+                { "modifier": "ruin", "bonus": "+5" },
+                { "modifier": "exceptional/might", "bonus": "+10" },
+                { "modifier": "force", "bonus": "+15" },
+                { "modifier": "power", "bonus": "+20" },
+                { "modifier": "vanquishing", "bonus": "+25" }
+            ]
         },
         {
-        "Category": "Slayer",
-        "Modifiers": [
-            { "Modifier": "Lesser Slaying", "Bonus": "+15%" },
-            { "Modifier": "Slaying", "Bonus": "+20%" },
-            { "Modifier": "Greater Slaying", "Bonus": "+25%" }
-        ]
+            "category": "slayer",
+            "modifiers": [
+                { "modifier": "lesser slaying", "bonus": "+15%" },
+                { "modifier": "slaying", "bonus": "+20%" },
+                { "modifier": "greater slaying", "bonus": "+25%" }
+            ]
         }
     ],
-    "Armor": [
+    "armor": [
         {
-        "Category": "Durability",
-        "Modifiers": [
-            { "Modifier": "Durable", "Bonus": "+20" },
-            { "Modifier": "Exceptional", "Bonus": "+25" },
-            { "Modifier": "Substantial", "Bonus": "+40" },
-            { "Modifier": "Mastercrafted", "Bonus": "+50" },
-            { "Modifier": "Massive", "Bonus": "+60" },
-            { "Modifier": "Fortified", "Bonus": "+80" },
-            { "Modifier": "Indestructible", "Bonus": "+100" }
-        ]
+            "category": "durability",
+            "modifiers": [
+                { "modifier": "durable", "bonus": "+20" },
+                { "modifier": "exceptional", "bonus": "+25" },
+                { "modifier": "substantial", "bonus": "+40" },
+                { "modifier": "mastercrafted", "bonus": "+50" },
+                { "modifier": "massive", "bonus": "+60" },
+                { "modifier": "fortified", "bonus": "+80" },
+                { "modifier": "indestructible", "bonus": "+100" }
+            ]
         },
         {
-        "Category": "Protection",
-        "Modifiers": [
-            { "Modifier": "Defense", "Bonus": "+20%" },
-            { "Modifier": "Guarding", "Bonus": "+40%" },
-            { "Modifier": "Hardening", "Bonus": "+60%" },
-            { "Modifier": "Fortification", "Bonus": "+80%" },
-            { "Modifier": "Invulnerability", "Bonus": "+100%" }
-        ]
+            "category": "protection",
+            "modifiers": [
+                { "modifier": "defense", "bonus": "+20%" },
+                { "modifier": "guarding", "bonus": "+40%" },
+                { "modifier": "hardening", "bonus": "+60%" },
+                { "modifier": "fortification", "bonus": "+80%" },
+                { "modifier": "invulnerability", "bonus": "+100%" }
+            ]
         }
     ],
-    "Spellbooks": [
+    "spellbooks": [
         {
-        "Category": "Durability",
-        "Modifier": [
-            { "Modifier": "Durable", "Bonus": "+100" },
-            { "Modifier": "Substantial", "Bonus": "+150" },
-            { "Modifier": "Massive", "Bonus": "+200" },
-            { "Modifier": "Fortified", "Bonus": "+250" },
-            { "Modifier": "Indestructible", "Bonus": "+300" }
-        ]
+            "category": "durability",
+            "modifier": [
+                { "modifier": "durable", "bonus": "+100" },
+                { "modifier": "substantial", "bonus": "+150" },
+                { "modifier": "massive", "bonus": "+200" },
+                { "modifier": "fortified", "bonus": "+250" },
+                { "modifier": "indestructible", "bonus": "+300" }
+            ]
         },
         {
-        "Category": "Potency",
-        "Modifier": [
-            { "Modifier": "Potent", "Bonus": "+5%" },
-            { "Modifier": "Surpassingly Potent", "Bonus": "+10%" },
-            { "Modifier": "Eminently Potent", "Bonus": "+15%" },
-            { "Modifier": "Exceedingly Potent", "Bonus": "+20%" },
-            { "Modifier": "Supremely Potent", "Bonus": "+25%" }
-        ]
+            "category": "potency",
+            "modifier": [
+                { "modifier": "potent", "bonus": "+5%" },
+                { "modifier": "surpassingly potent", "bonus": "+10%" },
+                { "modifier": "eminently potent", "bonus": "+15%" },
+                { "modifier": "exceedingly potent", "bonus": "+20%" },
+                { "modifier": "supremely potent", "bonus": "+25%" }
+            ]
         },
         {
-        "Category": "Damage",
-        "Modifier": [
-            { "Modifier": "Ruin", "Bonus": "+5%" },
-            { "Modifier": "Might", "Bonus": "+10%" },
-            { "Modifier": "Force", "Bonus": "+15%" },
-            { "Modifier": "Power", "Bonus": "+20%" },
-            { "Modifier": "Vanquishing", "Bonus": "+25%" }
-        ]
+            "category": "damage",
+            "modifier": [
+                { "modifier": "ruin", "bonus": "+5%" },
+                { "modifier": "might", "bonus": "+10%" },
+                { "modifier": "force", "bonus": "+15%" },
+                { "modifier": "power", "bonus": "+20%" },
+                { "modifier": "vanquishing", "bonus": "+25%" }
+            ]
         },
         {
-        "Category": "Slayer",
-        "Modifier": [
-            { "Modifier": "Lesser", "Bonus": "+15%" },
-            { "Modifier": "Slaying", "Bonus": "+20%" },
-            { "Modifier": "Greater", "Bonus": "+25%" }
-        ]
+            "category": "slayer",
+            "modifier": [
+                { "modifier": "lesser", "bonus": "+15%" },
+                { "modifier": "slaying", "bonus": "+20%" },
+                { "modifier": "greater", "bonus": "+25%" }
+            ]
         }
     ]
 }
