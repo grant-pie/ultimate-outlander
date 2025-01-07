@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th scope="col">Item Description</th>
-          <th scope="col">Quantity</th>
+          <th scope="col">Stack Size</th>
           <th scope="col">Total</th>
         </tr>
       </thead>
@@ -12,9 +12,9 @@
         <tr v-for="(content, index) in containerContents" :key="index">
           <td>{{ content.item.description }}</td>
           <td>
-            <p>{{  content.qty }}</p>
+            <p>{{  content.stack_size }}</p>
           </td>
-          <td>{{ calculateTotal(content.item.price, content.qty)  }}</td>
+          <td>{{ calculateTotal(content.item.price, content.stack_size)  }}</td>
         </tr>
       </tbody>
       <tfoot>
@@ -40,27 +40,27 @@ export default {
             typeof content.item === "object" &&
             typeof content.item.description === "string" &&
             typeof content.item.price === "number" &&
-            typeof content.qty === "number"
+            typeof content.stack_size === "number"
         ),
     },
   },
   computed: {
     grandTotal() {
       return this.containerContents.reduce((sum, content) => {
-        return sum + content.item.price * content.qty;
+        return sum + content.item.price * content.stack_size;
       }, 0);
     },
   },
   methods: {
-    updateQuantity(index, qty) {
+    updateQuantity(index, stack_size) {
       this.$emit("update:containerContents", [
         ...this.containerContents.slice(0, index),
-        { ...this.containerContents[index], qty },
+        { ...this.containerContents[index], stack_size },
         ...this.containerContents.slice(index + 1),
       ]);
     },
-    calculateTotal(price, qty) {
-      return price * qty;
+    calculateTotal(price, stack_size) {
+      return price * stack_size;
     }
   },
   filters: {

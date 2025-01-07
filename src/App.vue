@@ -97,7 +97,7 @@ function parseItems(logData) {
                 items.push({
                   description,
                   id: idMatch[1],
-                  qty: parseInt(qty), // Add the amount property
+                  qty: parseInt(qty), 
                 });
 
             }
@@ -232,14 +232,14 @@ function parseInput () {
                 //the item exists and we should update its qty
                 existingItem.qty = existingItem.qty + parsedItem.qty
                 item = existingItem;
-           
+                console.log
                } else {
                 //the item does not exist and should be added
                  item = {
                      description: parsedItem.description,
                      type: getItemType(parsedItem.description),
                      price: 0,
-                     qty: 1,
+                     qty: parsedItem.qty,
                  };
                    
                  items.value.push(item);
@@ -248,7 +248,7 @@ function parseInput () {
  
                contents.push({
                  item: item,
-                 qty:parsedItem.qty
+                 stack_size:parsedItem.qty
                });
  
          }
