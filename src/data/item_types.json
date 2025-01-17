@@ -107,5 +107,9 @@
         "sackbut",
         "shawm",
         "vielle"
+    ],
+    "maps": [
+        "undeciphered",
+        "% estimated accuracy"
     ]
 }

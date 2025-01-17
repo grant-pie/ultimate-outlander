@@ -1,4 +1,10 @@
+*get item script
+*add to item collection
+    -> get items script
+    -> add to vendor script
 *remove item from items
 *remove item from container 
 *remove container
 *grab item script copy
+*more items support
+*item qty and types are stored 2x?
