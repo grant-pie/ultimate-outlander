@@ -305,9 +305,11 @@ function downloadJSON(jsonObject, fileName) {
 //TODO: this should maybe be category and not type
 function getItemType(itemDescription) {
   for (const [type, itemsOfType] of Object.entries(ItemTypes)) {
+
     if (itemsOfType.some(item => itemDescription.includes(item))) {
       return type;
     }
+    
   }
   return -1;
 }
