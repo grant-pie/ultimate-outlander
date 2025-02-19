@@ -4,6 +4,7 @@
       <thead>
         <tr>
           <th scope="col">Item Description</th>
+          <th scope="col">Item Serial</th>
           <th scope="col">Stack Size</th>
           <th scope="col">Total</th>
         </tr>
@@ -11,6 +12,7 @@
       <tbody>
         <tr v-for="(content, index) in containerContents" :key="index">
           <td>{{ content.item.description }}</td>
+          <td>{{ content.item.id }}</td>
           <td>
             <p>{{  content.stack_size }}</p>
           </td>

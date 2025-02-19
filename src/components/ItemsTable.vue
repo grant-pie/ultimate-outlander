@@ -17,6 +17,7 @@
           <th scope="col">Price</th>
           <th scope="col">Qty</th>
           <th scope="col">Link</th>
+          <th scope="col">Get</th>
         </tr>
       </thead>
       <tbody>
@@ -42,6 +43,7 @@
             </a>
           </td>
         </tr>
+  
       </tbody>
     </table>
   </div>

@@ -99,7 +99,7 @@ function parseItems(logData) {
                   id: idMatch[1],
                   qty: parseInt(qty), 
                 });
-
+                
             }
 
         }
@@ -220,7 +220,7 @@ function parseInput () {
  
        const parsedItems = parseItems(chestLog);
        const contents = [];
- 
+      
        parsedItems.forEach((parsedItem) => { 
  
          if(parsedItems.length > 0) {
@@ -235,8 +235,11 @@ function parseInput () {
                 console.log
                } else {
                 //the item does not exist and should be added
+                console.log(parsedItem)
                  item = {
+              
                      description: parsedItem.description,
+                     id: parsedItem.id,
                      type: getItemType(parsedItem.description),
                      price: 0,
                      qty: parsedItem.qty,
@@ -253,7 +256,6 @@ function parseInput () {
  
          }
        });
- 
        const container = {
            id: parseId(chestLog),
            date_updated: parseContainerDate(chestLog),
