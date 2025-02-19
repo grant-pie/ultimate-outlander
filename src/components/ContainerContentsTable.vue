@@ -25,6 +25,9 @@
           <td>
             <p>{{ content.stack_size }}</p>
           </td>
+          <td>
+            <button @click="copyGetItemScript(containerID, content.item.id)" class="btn btn-primary">Get</button>
+          </td>
           <td>{{ calculateTotal(content.item.price, content.stack_size) }}</td>
         </tr>
       </tbody>
@@ -42,6 +45,10 @@
 export default {
   name: "ContainerContentsTable",
   props: {
+    containerID: {
+      type: String,
+      required: true,
+    },
     containerContents: {
       type: Array,
       required: true,
@@ -78,6 +85,34 @@ export default {
     calculateTotal(price, stack_size) {
       return price * stack_size;
     },
+    copyToClipboard(text) {
+      navigator.clipboard.writeText(text)
+    .then(() => {
+      console.log("Text copied to clipboard:", text);
+    })
+    .catch(err => {
+      console.error("Failed to copy text: ", err);
+    });
+  },
+    copyGetItemScript(containerID, itemID){
+      const text =  `
+        if find ${itemID} ${containerID} as item
+            
+            overhead 'item found'
+            
+            lift item
+            
+            wait 250
+            
+            drop backpack
+            
+        else 
+                
+            overhead 'item not found'
+        endif
+        `;
+      this.copyToClipboard(text);
+    }
   },
 };
 </script>

@@ -389,6 +389,7 @@ function getItemType(itemDescription) {
       >
 
         <ContainerContentsTable
+        :containerID="container.id"
         :containerContents="container.contents"
         />        
 
