@@ -1,5 +1,14 @@
 <template>
   <div>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5>Container Contents</h5>
+      <input
+        type="text"
+        class="form-control w-25"
+        v-model="searchQuery"
+        placeholder="Search..."
+      />
+    </div>
     <table class="table table-striped table-hover">
       <thead>
         <tr>
@@ -10,13 +19,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(content, index) in containerContents" :key="index">
+        <tr v-for="(content, index) in filteredContents" :key="index">
           <td>{{ content.item.description }}</td>
           <td>{{ content.item.id }}</td>
           <td>
-            <p>{{  content.stack_size }}</p>
+            <p>{{ content.stack_size }}</p>
           </td>
-          <td>{{ calculateTotal(content.item.price, content.stack_size)  }}</td>
+          <td>{{ calculateTotal(content.item.price, content.stack_size) }}</td>
         </tr>
       </tbody>
       <tfoot>
@@ -46,31 +55,28 @@ export default {
         ),
     },
   },
+  data() {
+    return {
+      searchQuery: "", // Holds the search input value
+    };
+  },
   computed: {
+    filteredContents() {
+      return this.containerContents.filter((content) =>
+        content.item.description
+          .toLowerCase()
+          .includes(this.searchQuery.toLowerCase())
+      );
+    },
     grandTotal() {
-      return this.containerContents.reduce((sum, content) => {
+      return this.filteredContents.reduce((sum, content) => {
         return sum + content.item.price * content.stack_size;
       }, 0);
     },
   },
   methods: {
-    updateQuantity(index, stack_size) {
-      this.$emit("update:containerContents", [
-        ...this.containerContents.slice(0, index),
-        { ...this.containerContents[index], stack_size },
-        ...this.containerContents.slice(index + 1),
-      ]);
-    },
     calculateTotal(price, stack_size) {
       return price * stack_size;
-    }
-  },
-  filters: {
-    currency(value) {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(value);
     },
   },
 };
@@ -79,4 +85,3 @@ export default {
 <style scoped>
 /* Additional styles can go here if needed */
 </style>
- 
