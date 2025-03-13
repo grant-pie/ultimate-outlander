@@ -276,8 +276,6 @@ function parseInput () {
  
 }
 
-/*  End Parsing  */
-
 function downloadJSON(jsonObject, fileName) {
     // Convert JSON object to string
     const jsonString = JSON.stringify(jsonObject, null, 2);
@@ -304,7 +302,6 @@ function downloadJSON(jsonObject, fileName) {
     document.body.removeChild(link);
 }
 
-//TODO: this should maybe be category and not type
 function getItemType(itemDescription) {
   for (const [type, itemsOfType] of Object.entries(ItemTypes)) {
 
@@ -315,70 +312,156 @@ function getItemType(itemDescription) {
   }
   return -1;
 }
+
+function copyToClipboard(textToCopy){
+  navigator.clipboard.writeText(textToCopy);
+}
+function copyCatalogScript (event){
+
+  const textToCopy = `
+  setvar rare_loot_container
+
+  wait 250
+
+
+  //setvar take_container
+
+  wait 250
+
+  if not listexists rare_loot_ids
+
+      createlist rare_loot_ids
+
+  else
+
+      clearlist rare_loot_ids
+
+
+  endif
+
+  pushlist rare_loot_ids "Phylactery"
+  //pushlist rare_loot_ids "Bottle"
+  //pushlist rare_loot_ids "Blank Scroll"
+  pushlist rare_loot_ids "Folded Cloth"
+  pushlist rare_loot_ids "Carpet"
+  pushlist rare_loot_ids "Research Materials"
+  pushlist rare_loot_ids "Book of Truth"
+  pushlist rare_loot_ids "scroll of calling"
+  pushlist rare_loot_ids "aspect core"
+  pushlist rare_loot_ids "chroma core"
+  pushlist rare_loot_ids "flask"
+  pushlist rare_loot_ids "chroma distil"
+  pushlist rare_loot_ids "map"
+
+  sysmsg "Now cataloguing..."
+  wait 250
+  sysmsg rare_loot_container
+  wait 250
+  foreach id in rare_loot_ids
+
+      while findtype id rare_loot_container as item
+
+          getlabel item description
+
+          sysmsg description
+
+          wait 250
+          
+          // lift item 60000
+          //wait 250
+          
+          //drop take_container
+          //
+              ignore item
+      endwhile
+
+  endfor
+  clearignore
+  sysmsg "Cataloguing done."`
+  
+  //show popoover that hides on next click
+  const copyScriptBtn = event.target;
+  copyScriptBtn.innerText = 'Copied!'
+  window.setTimeout(() => {
+  
+    const copyScriptBtn = document.getElementById('copyCatalogScriptBtn');
+    copyScriptBtn.innerText = 'Copy Catalog Script'
+  }, 2000)
+  return copyToClipboard(textToCopy);
+}
 </script>
 
 <template>
-  <div>
+
+  <div
+  class="px-4 mt-5"
+  >
+
+    <!--Nav-->
 
     <!--input-->   
-    <div class="row">
+    <div class="row mt-5 mx-5">
 
       <div class="col-12">
 
-
-        <Card
-        cardHeader="Parser"
-        >
-
-          <form>
-                        
-            <div class="mb-3">
-
-                <label for="floatingTextarea" class="form-label">Text: </label>
-
-                <textarea  class="form-control" placeholder="Paste journal text here"
-                v-model="input" 
-                ></textarea>
-
-                <div  class="form-text">Input text here.</div>
-
-                <div  class="form-text text-muted" ><p>{{ msg }}</p></div>
-
-            </div>
-            
-            <button type="button" class="btn btn-primary" @click="parseInput()">Parse</button>
-
-          </form>
-
-        </Card>
-
+        <div class="card border shadow">
+          <div class="d-flex justify-content-between card-header text-light bg-primary">
+            <p class="mb-0 mt-1">Catalog Parser</p>
+            <button id="copyCatalogScriptBtn" type="button" class="btn btn-secondary" @click="copyCatalogScript">Copy Catalog Script</button>
+          </div>
+          <div class="card-body">
+            <form>
+              
+              <div class="mb-3 d-flex flex-column">
+  
+                  <label for="floatingTextarea" class="form-label">Journal Text: </label>
+  
+                  <textarea  class="form-control" placeholder="Paste journal text here"
+                  v-model="input" 
+                  ></textarea>
+  
+                  <div  class="form-text">Journal text to parse.</div>
+  
+                  <div  class="form-text text-muted" ><p>{{ msg }}</p></div>
+  
+                  <button type="button" class="btn btn-primary " @click="parseInput()">Parse Catalog</button>
+      
+              </div>
+  
+  
+            </form>
+          </div>
+        </div>
       </div>
 
-      </div>
+    </div>
 
-      <!-- items table -->
-      <div class="row">
+    <!-- items table -->
+    <div class="row"
+    v-show="items.length > 0"
+    >
 
-      <div class="col-12">
+    <div class="col-12">
 
 
-        <Card
-        cardHeader="Items"
-        >
+      <Card
+      cardHeader="Items"
+      >
 
-          <ItemsTable 
-          :items="items"
-          />
+        <ItemsTable 
+        :items="items"
+        />
 
-          <button v-show="items.length > 1" type="button" class="btn btn-primary" @click="downloadJSON(items, 'items.json')">Export</button>
+        <button v-show="items.length > 1" type="button" class="btn btn-primary" @click="downloadJSON(items, 'items.json')">Export</button>
 
-        </Card>
+      </Card>
 
-      </div>
+    </div>
 
-      </div>
-      <!-- container table-->
-      <div 
+    </div>
+
+    <!-- container table-->
+    <div 
       v-for="container in containers" :key="container.id"
       class="row">
 

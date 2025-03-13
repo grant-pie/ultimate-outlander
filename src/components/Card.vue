@@ -2,6 +2,7 @@
     <div class="card border shadow">
       <div class="card-header text-light bg-primary">
         {{ cardHeader }}
+        
       </div>
       <div class="card-body">
         <slot />
