@@ -297,13 +297,12 @@ function parseItems(logData) {
         let qty = 1; // Default amount
 
         // Check if the description ends with ": <integer>"
-        const qtyMatch = description.match(/: (\d+)$/);
-        if (qtyMatch) {
-
-            qty = parseInt(qtyMatch[1], 10); // Extract and parse the integer
-            description = description.replace(/: \d+$/, '').trim(); // Remove the ": <integer>" part
-
-        }
+       // Check if the description contains ": <integer>" pattern anywhere
+      const qtyMatch = description.match(/\s:\s(\d+)(\s|$)/);
+      if (qtyMatch) {
+          qty = parseInt(qtyMatch[1], 10); // Extract and parse the integer
+          description = description.replace(/\s:\s\d+(\s|$)/, '$1').trim(); // Remove the ": <integer>" part
+      }
 
         // Check the next line for the item ID
         const nextLine = lines[i + 1];
