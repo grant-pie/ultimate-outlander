@@ -13,6 +13,226 @@ const msg = ref('');
 const items = ref([]);
 const containers = ref([]);
 
+const testJournal = `[03/14/2025 07:23]  System: WorldMap loading...
+[03/14/2025 07:23]  System: Loading WorldMap markers..
+[03/14/2025 07:23]  System: ..userMarkers.usr (25)
+[03/14/2025 07:23]  System: ..Banks_and_Healers.xml (39)
+[03/14/2025 07:23]  System: ..Dungeons.xml (13)
+[03/14/2025 07:23]  System: ..Dungeon_Gates.xml (396)
+[03/14/2025 07:23]  System: ..Healer_Caravans.xml (42)
+[03/14/2025 07:23]  System: ..Kings_Faire.xml (49)
+[03/14/2025 07:23]  System: ..Moongates.xml (10)
+[03/14/2025 07:23]  System: ..POI.xml (251)
+[03/14/2025 07:23]  System: ..PvP_Locations.xml (71)
+[03/14/2025 07:23]  System: ..Shrines.xml (9)
+[03/14/2025 07:23]  System: ..Sub-Dungeons.xml (4)
+[03/14/2025 07:23]  System: ..Townships.xml (10)
+[03/14/2025 07:23]  System: WorldMap markers loaded (919)
+[03/14/2025 07:23]  System: Welcome Gluk'Urk!
+[03/14/2025 07:23]  System: WorldMap loaded!
+[03/14/2025 07:23]  Gluk'Urk: Monster Hunter Dignitary
+[03/14/2025 07:23]  Gluk'Urk: Lord Gluk'Urk
+[03/14/2025 07:23]  System: You have rejoined the party.
+[03/14/2025 07:24]  [Razor]: Select target for variable 'rare_loot_container'
+[03/14/2025 07:24]  [Razor]: 'rare_loot_container' script variable updated to '0x4089E923'
+[03/14/2025 07:24]  [Razor]: Now cataloguing...
+[03/14/2025 07:24]  [Razor]: 1082779939
+[03/14/2025 07:24]  [Razor]: Air Aspect Core : 2
+[03/14/2025 07:24]  [Razor]: Added 1161806015 to ignore list
+[03/14/2025 07:24]  You see: Earth Aspect Core : 2
+[03/14/2025 07:24]  [Razor]: Select target for variable 'rare_loot_container'
+[03/14/2025 07:24]  [Razor]: 'rare_loot_container' script variable updated to '0x4089E923'
+[03/14/2025 07:24]  [Razor]: Now cataloguing...
+[03/14/2025 07:24]  [Razor]: 1082779939
+[03/14/2025 07:24]  [Razor]: Earth Aspect Core : 2
+[03/14/2025 07:24]  [Razor]: Added 1085210704 to ignore list
+[03/14/2025 07:24]  [Razor]: Fortune Aspect Core
+[03/14/2025 07:24]  [Razor]: Added 1152384927 to ignore list
+[03/14/2025 07:24]  [Razor]: Eldritch Aspect Core : 2
+[03/14/2025 07:24]  [Razor]: Added 1159657583 to ignore list
+[03/14/2025 07:24]  [Razor]: Void Aspect Core
+[03/14/2025 07:24]  [Razor]: Added 1220388922 to ignore list
+[03/14/2025 07:24]  [Razor]: Madness Aspect Core
+[03/14/2025 07:24]  [Razor]: Added 1213299230 to ignore list
+[03/14/2025 07:24]  [Razor]: Frost Aspect Core
+[03/14/2025 07:24]  [Razor]: Added 1214639822 to ignore list
+[03/14/2025 07:24]  [Razor]: Harvest Aspect Core
+[03/14/2025 07:24]  [Razor]: Added 1342869590 to ignore list
+[03/14/2025 07:24]  [Razor]: Death Aspect Core
+[03/14/2025 07:24]  [Razor]: Added 1293340755 to ignore list
+[03/14/2025 07:24]  [Razor]: a chromatic core : 2
+[03/14/2025 07:24]  [Razor]: Added 1259495345 to ignore list
+[03/14/2025 07:24]  [Razor]: Ignore List cleared
+[03/14/2025 07:24]  [Razor]: Cataloguing done.
+[03/14/2025 07:24]  [Razor]: Select target for variable 'rare_loot_container'
+[03/14/2025 07:24]  [Razor]: 'rare_loot_container' script variable updated to '0x785A861C'
+[03/14/2025 07:24]  [Razor]: Now cataloguing...
+[03/14/2025 07:24]  [Razor]: 2019198492
+[03/14/2025 07:24]  [Razor]: Air Aspect Distillation : 2
+[03/14/2025 07:24]  [Razor]: Added 1148837370 to ignore list
+[03/14/2025 07:24]  [Razor]: Blood Aspect Distillation
+[03/14/2025 07:24]  [Razor]: Added 1088919910 to ignore list
+[03/14/2025 07:24]  [Razor]: Fire Aspect Distillation : 2
+[03/14/2025 07:24]  [Razor]: Added 1121710291 to ignore list
+[03/14/2025 07:24]  [Razor]: Artisan Aspect Distillation
+[03/14/2025 07:24]  [Razor]: Added 1368154481 to ignore list
+[03/14/2025 07:24]  [Razor]: Frost Aspect Distillation
+[03/14/2025 07:24]  [Razor]: Added 1165913952 to ignore list
+[03/14/2025 07:24]  [Razor]: Holy Aspect Distillation
+[03/14/2025 07:24]  [Razor]: Added 1195261117 to ignore list
+[03/14/2025 07:24]  [Razor]: Poison Aspect Distillation : 2
+[03/14/2025 07:24]  [Razor]: Added 1733222166 to ignore list
+[03/14/2025 07:24]  [Razor]: Void Aspect Distillation : 2
+[03/14/2025 07:24]  [Razor]: Added 1431943843 to ignore list
+[03/14/2025 07:24]  [Razor]: Harvest Aspect Distillation : 2
+[03/14/2025 07:24]  [Razor]: Added 1190250980 to ignore list
+[03/14/2025 07:24]  [Razor]: Death Aspect Distillation
+[03/14/2025 07:24]  [Razor]: Added 1239872627 to ignore list
+[03/14/2025 07:24]  [Razor]: Madness Aspect Distillation : 3
+[03/14/2025 07:24]  [Razor]: Added 1214627871 to ignore list
+[03/14/2025 07:24]  [Razor]: Fortune Aspect Distillation
+[03/14/2025 07:24]  [Razor]: Added 1220437845 to ignore list
+[03/14/2025 07:24]  [Razor]: Eldritch Aspect Distillation
+[03/14/2025 07:24]  [Razor]: Added 1342881440 to ignore list
+[03/14/2025 07:24]  [Razor]: Lightning Aspect Distillation
+[03/14/2025 07:24]  [Razor]: Added 1219308898 to ignore list
+[03/14/2025 07:24]  [Razor]: Water Aspect Distillation
+[03/14/2025 07:24]  [Razor]: Added 1401749244 to ignore list
+[03/14/2025 07:24]  [Razor]: chromatic distillation : 2
+[03/14/2025 07:24]  [Razor]: Added 1239622948 to ignore list
+[03/14/2025 07:24]  [Razor]: Ignore List cleared
+[03/14/2025 07:24]  [Razor]: Cataloguing done.
+[03/14/2025 07:24]  [Razor]: Select target for variable 'rare_loot_container'
+[03/14/2025 07:24]  [Razor]: 'rare_loot_container' script variable updated to '0x436BF5E2'
+[03/14/2025 07:24]  [Razor]: Now cataloguing...
+[03/14/2025 07:24]  [Razor]: 1131148770
+[03/14/2025 07:24]  [Razor]: detect hidden skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:24]  [Razor]: Select target for variable 'rare_loot_container'
+[03/14/2025 07:24]  [Razor]: 'rare_loot_container' script variable updated to '0x436BF5E2'
+[03/14/2025 07:24]  [Razor]: Now cataloguing...
+[03/14/2025 07:24]  [Razor]: 1131148770
+[03/14/2025 07:24]  [Razor]: detect hidden skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:24]  [Razor]: Added 1802080494 to ignore list
+[03/14/2025 07:24]  [Razor]: taste id skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:24]  [Razor]: Added 1161806014 to ignore list
+[03/14/2025 07:24]  [Razor]: cartography skill mastery scroll : 2 (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:24]  [Razor]: Added 1173823732 to ignore list
+[03/14/2025 07:24]  [Razor]: mining skill mastery scroll : 2 (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:24]  [Razor]: Added 1182436614 to ignore list
+[03/14/2025 07:24]  [Razor]: item id skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:24]  [Razor]: Added 1113463241 to ignore list
+[03/14/2025 07:24]  [Razor]: animal lore skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:24]  [Razor]: Added 1220524745 to ignore list
+[03/14/2025 07:24]  [Razor]: necromancy skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:24]  [Razor]: Added 1351147995 to ignore list
+[03/14/2025 07:24]  [Razor]: discordance skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:24]  [Razor]: Added 1401964721 to ignore list
+[03/14/2025 07:24]  [Razor]: blacksmithy skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:24]  [Razor]: Added 1182412501 to ignore list
+[03/14/2025 07:24]  [Razor]: Ignore List cleared
+[03/14/2025 07:24]  [Razor]: Cataloguing done.
+[03/14/2025 07:24]  [Razor]: Select target for variable 'rare_loot_container'
+[03/14/2025 07:25]  [Razor]: 'rare_loot_container' script variable updated to '0x5A45EE0D'
+[03/14/2025 07:25]  [Razor]: Now cataloguing...
+[03/14/2025 07:25]  [Razor]: 1514532365
+[03/14/2025 07:25]  [Razor]: water phylactery
+[03/14/2025 07:25]  [Razor]: Added 1613130439 to ignore list
+[03/14/2025 07:25]  [Razor]: rare cloth (hue 2093: shadowspire cathedral)
+[03/14/2025 07:25]  [Razor]: Added 1401626041 to ignore list
+[03/14/2025 07:25]  [Razor]: rare cloth (hue 1382: powder lemon)
+[03/14/2025 07:25]  [Razor]: Added 1225765951 to ignore list
+[03/14/2025 07:25]  [Razor]: dyeable carpet tile
+[03/14/2025 07:25]  [Razor]: Added 2051253151 to ignore list
+[03/14/2025 07:25]  [Razor]: dyeable carpet tile
+[03/14/2025 07:25]  [Razor]: Added 1373415996 to ignore list
+[03/14/2025 07:25]  [Razor]: dyeable rug tile
+[03/14/2025 07:25]  [Razor]: Added 1577236465 to ignore list
+[03/14/2025 07:25]  [Razor]: research materials : 4 (double-click to research)
+[03/14/2025 07:25]  [Razor]: Added 1148837371 to ignore list
+[03/14/2025 07:25]  [Razor]: mastercrafting diagram : 3
+[03/14/2025 07:25]  [Razor]: Added 1373580807 to ignore list
+[03/14/2025 07:25]  [Razor]: mining skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:25]  [Razor]: Added 1111873406 to ignore list
+[03/14/2025 07:25]  [Razor]: detect hidden skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:25]  [Razor]: Added 1802080494 to ignore list
+[03/14/2025 07:25]  [Razor]: taste id skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:25]  [Razor]: Added 1161806014 to ignore list
+[03/14/2025 07:25]  [Razor]: cartography skill mastery scroll : 2 (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:25]  [Razor]: Added 1173823732 to ignore list
+[03/14/2025 07:25]  [Razor]: mining skill mastery scroll : 2 (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:25]  [Razor]: Added 1182436614 to ignore list
+[03/14/2025 07:25]  [Razor]: item id skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:25]  [Razor]: Added 1113463241 to ignore list
+[03/14/2025 07:25]  [Razor]: animal lore skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:25]  [Razor]: Added 1220524745 to ignore list
+[03/14/2025 07:25]  [Razor]: necromancy skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:25]  [Razor]: Added 1351147995 to ignore list
+[03/14/2025 07:25]  [Razor]: discordance skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:25]  [Razor]: Added 1401964721 to ignore list
+[03/14/2025 07:25]  [Razor]: blacksmithy skill mastery scroll (used to increase a player's skill cap for a skill by 1)
+[03/14/2025 07:25]  [Razor]: Added 1182412501 to ignore list
+[03/14/2025 07:25]  [Razor]: Air Aspect Core
+[03/14/2025 07:25]  [Razor]: Added 1123661072 to ignore list
+[03/14/2025 07:25]  [Razor]: Air Aspect Core : 2
+[03/14/2025 07:25]  [Razor]: Added 1161806015 to ignore list
+[03/14/2025 07:25]  [Razor]: Earth Aspect Core : 2
+[03/14/2025 07:25]  [Razor]: Added 1085210704 to ignore list
+[03/14/2025 07:25]  [Razor]: Fortune Aspect Core
+[03/14/2025 07:25]  [Razor]: Added 1152384927 to ignore list
+[03/14/2025 07:25]  [Razor]: Eldritch Aspect Core : 2
+[03/14/2025 07:25]  [Razor]: Added 1159657583 to ignore list
+[03/14/2025 07:25]  [Razor]: Void Aspect Core
+[03/14/2025 07:25]  [Razor]: Added 1220388922 to ignore list
+[03/14/2025 07:25]  [Razor]: Madness Aspect Core
+[03/14/2025 07:25]  [Razor]: Added 1213299230 to ignore list
+[03/14/2025 07:25]  [Razor]: Frost Aspect Core
+[03/14/2025 07:25]  [Razor]: Added 1214639822 to ignore list
+[03/14/2025 07:25]  [Razor]: Harvest Aspect Core
+[03/14/2025 07:25]  [Razor]: Added 1342869590 to ignore list
+[03/14/2025 07:25]  [Razor]: Death Aspect Core
+[03/14/2025 07:25]  [Razor]: Added 1293340755 to ignore list
+[03/14/2025 07:25]  [Razor]: a chromatic core : 2
+[03/14/2025 07:25]  [Razor]: Added 1259495345 to ignore list
+[03/14/2025 07:25]  [Razor]: Gadget Aspect Distillation
+[03/14/2025 07:25]  [Razor]: Added 1132054652 to ignore list
+[03/14/2025 07:25]  [Razor]: Air Aspect Distillation : 2
+[03/14/2025 07:25]  [Razor]: Added 1148837370 to ignore list
+[03/14/2025 07:25]  [Razor]: Blood Aspect Distillation
+[03/14/2025 07:25]  [Razor]: Added 1088919910 to ignore list
+[03/14/2025 07:25]  [Razor]: Fire Aspect Distillation : 2
+[03/14/2025 07:25]  [Razor]: Added 1121710291 to ignore list
+[03/14/2025 07:25]  [Razor]: Artisan Aspect Distillation
+[03/14/2025 07:25]  [Razor]: Added 1368154481 to ignore list
+[03/14/2025 07:25]  [Razor]: Frost Aspect Distillation
+[03/14/2025 07:25]  [Razor]: Added 1165913952 to ignore list
+[03/14/2025 07:25]  [Razor]: Holy Aspect Distillation
+[03/14/2025 07:25]  [Razor]: Added 1195261117 to ignore list
+[03/14/2025 07:25]  [Razor]: Poison Aspect Distillation : 2
+[03/14/2025 07:25]  [Razor]: Added 1733222166 to ignore list
+[03/14/2025 07:25]  [Razor]: Void Aspect Distillation : 2
+[03/14/2025 07:25]  [Razor]: Added 1431943843 to ignore list
+[03/14/2025 07:25]  [Razor]: Harvest Aspect Distillation : 2
+[03/14/2025 07:25]  [Razor]: Added 1190250980 to ignore list
+[03/14/2025 07:25]  [Razor]: Death Aspect Distillation
+[03/14/2025 07:25]  [Razor]: Added 1239872627 to ignore list
+[03/14/2025 07:25]  [Razor]: Madness Aspect Distillation : 3
+[03/14/2025 07:25]  [Razor]: Added 1214627871 to ignore list
+[03/14/2025 07:25]  [Razor]: Fortune Aspect Distillation
+[03/14/2025 07:25]  [Razor]: Added 1220437845 to ignore list
+[03/14/2025 07:25]  [Razor]: Eldritch Aspect Distillation
+[03/14/2025 07:25]  [Razor]: Added 1342881440 to ignore list
+[03/14/2025 07:25]  [Razor]: Lightning Aspect Distillation
+[03/14/2025 07:25]  [Razor]: Added 1219308898 to ignore list
+[03/14/2025 07:25]  [Razor]: Water Aspect Distillation
+[03/14/2025 07:25]  [Razor]: Added 1401749244 to ignore list
+[03/14/2025 07:25]  [Razor]: chromatic distillation : 2
+[03/14/2025 07:25]  [Razor]: Added 1239622948 to ignore list
+[03/14/2025 07:25]  [Razor]: Ignore List cleared
+[03/14/2025 07:25]  [Razor]: Cataloguing done.
+`;
+
+
+
 /*  Parsing  */
 function parseId(logData) {
 
@@ -316,6 +536,7 @@ function getItemType(itemDescription) {
 function copyToClipboard(textToCopy){
   navigator.clipboard.writeText(textToCopy);
 }
+
 function copyCatalogScript (event){
 
   const textToCopy = `
@@ -389,6 +610,12 @@ function copyCatalogScript (event){
   }, 2000)
   return copyToClipboard(textToCopy);
 }
+
+onMounted(() => {
+  console.log('Yo');
+  input.value = testJournal;
+  parseInput();
+});
 </script>
 
 <template>
@@ -416,7 +643,7 @@ function copyCatalogScript (event){
   
                   <label for="floatingTextarea" class="form-label">Journal Text: </label>
   
-                  <textarea  class="form-control" placeholder="Paste journal text here"
+                  <textarea  id="journalInput" class="form-control" placeholder="Paste journal text here"
                   v-model="input" 
                   ></textarea>
   
@@ -437,7 +664,7 @@ function copyCatalogScript (event){
     </div>
 
     <!-- items table -->
-    <div class="row"
+    <div class="row  mt-5 mx-5"
     v-show="items.length > 0"
     >
 
@@ -463,7 +690,7 @@ function copyCatalogScript (event){
     <!-- container table-->
     <div 
       v-for="container in containers" :key="container.id"
-      class="row">
+      class="row mt-5 mx-5">
 
       <div class="col-12">
 

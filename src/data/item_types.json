@@ -111,5 +111,32 @@
     "maps": [
         "undeciphered",
         "% estimated accuracy"
+    ],
+    "aspect core": [
+        "Core", "core"
+    ],
+    "aspect distillation": [
+        "Distillation", "distillation"
+    ],
+    "skill mastery scroll": [
+        "skill mastery scroll"
+    ],
+    "phylactery" : [
+        "phylactery"
+    ],
+    "rare cloth" : [
+        "rare cloth"
+    ],
+    "carpet tile": [
+        "carpet tile"
+    ],
+    "rug tile": [
+        "rug tile"
+    ],
+    "research materials": [
+        "research materials"
+    ],
+    "mastercrafting diagram": [
+        "mastercrafting diagram"
     ]
 }
