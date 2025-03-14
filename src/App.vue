@@ -13,6 +13,7 @@ const msg = ref('');
 const items = ref([]);
 const containers = ref([]);
 
+const minimizeItemsTable = ref(false);
 const testJournal = `[03/14/2025 07:23]  System: WorldMap loading...
 [03/14/2025 07:23]  System: Loading WorldMap markers..
 [03/14/2025 07:23]  System: ..userMarkers.usr (25)
@@ -230,7 +231,6 @@ const testJournal = `[03/14/2025 07:23]  System: WorldMap loading...
 [03/14/2025 07:25]  [Razor]: Ignore List cleared
 [03/14/2025 07:25]  [Razor]: Cataloguing done.
 `;
-
 
 
 /*  Parsing  */
@@ -480,7 +480,8 @@ function parseInput () {
            id: parseId(chestLog),
            date_updated: parseContainerDate(chestLog),
            time_updated: parseContainerTime(chestLog),
-           contents: contents
+           contents: contents,
+           show: true
        }
  
        containers.value.push(container);
@@ -676,19 +677,24 @@ onMounted(() => {
     >
 
     <div class="col-12">
-
-
-      <Card
-      cardHeader="Items"
-      >
-
-        <ItemsTable 
+      <div class="card border shadow">
+        <div class="card-header d-flex justify-content-between text-light bg-primary">
+          <p class="mb-0">Item Prices</p>
+          <button 
+          class="btn btn-secondary"
+          @click="minimizeItemsTable=!minimizeItemsTable"
+          ><strong>{{ minimizeItemsTable ? '+' : '-' }}</strong></button>
+        </div>
+        <div class="card-body">
+          <ItemsTable 
         :items="items"
+        v-show="!minimizeItemsTable"
         />
 
-        <button v-show="items.length > 1" type="button" class="btn btn-primary" @click="downloadJSON(items, 'items.json')">Export</button>
-
-      </Card>
+        <button 
+        v-show="items.length > 1 && !minimizeItemsTable" type="button" class="btn btn-primary" @click="downloadJSON(items, 'items.json')">Export</button>
+        </div>
+      </div>
 
     </div>
 
@@ -703,18 +709,25 @@ onMounted(() => {
 
         <div class="card border shadow">
 
-          <div class="d-flex justify-content-between card-header text-light bg-primary">
+          <div class="d-flex card-header text-light bg-primary">
             <p class="mb-0 mt-2">Serial: {{ container.id + ' / ' + parseInt(container.id).toString(16) }}</p>
             <button
-            class="btn btn-danger "
+            class="btn btn-danger ms-auto"
             @click="removeContainer(container.id)"
             > X </button>
+            <button 
+            class="btn btn-secondary ms-2"
+            @click="container.show = !container.show"
+            ><strong>{{ container.show ? '+' : '-' }}</strong></button>
           </div>
 
-          <div class="card-body">
+          <div class="card-body"
+               v-show="container.show"
+          >
             <ContainerContentsTable
               :containerID="container.id"
               :containerContents="container.contents"
+         
             />   
           </div>
 

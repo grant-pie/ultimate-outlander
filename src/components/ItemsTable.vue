@@ -68,6 +68,7 @@ export default {
   data() {
     return {
       searchQuery: "", // Holds the search input value
+     
     };
   },
   computed: {
