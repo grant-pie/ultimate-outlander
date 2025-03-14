@@ -611,6 +611,13 @@ function copyCatalogScript (event){
   return copyToClipboard(textToCopy);
 }
 
+function removeContainer(containerId){
+  console.log(containerId)
+  console.log(containers.value)
+  containers.value = containers.value.filter(function( obj ) {
+      return obj.id !== containerId;
+  });
+}
 onMounted(() => {
   console.log('Yo');
   input.value = testJournal;
@@ -689,23 +696,30 @@ onMounted(() => {
 
     <!-- container table-->
     <div 
-      v-for="container in containers" :key="container.id"
-      class="row mt-5 mx-5">
+    v-for="container in containers" :key="container.id"
+    class="row mt-5 mx-5">
 
       <div class="col-12">
 
-      <Card
-      :cardHeader="container.id + ' | ' + parseInt(container.id).toString(16)"
-      >
+        <div class="card border shadow">
 
-        <ContainerContentsTable
-        :containerID="container.id"
-        :containerContents="container.contents"
-        />        
+          <div class="d-flex justify-content-between card-header text-light bg-primary">
+            <p class="mb-0 mt-2">Serial: {{ container.id + ' / ' + parseInt(container.id).toString(16) }}</p>
+            <button
+            class="btn btn-danger "
+            @click="removeContainer(container.id)"
+            > X </button>
+          </div>
 
-      </Card>
+          <div class="card-body">
+            <ContainerContentsTable
+              :containerID="container.id"
+              :containerContents="container.contents"
+            />   
+          </div>
 
-
+        </div>
+    
       </div>
 
     </div>

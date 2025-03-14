@@ -15,9 +15,8 @@
           <th scope="col">Description</th>
           <th scope="col">Type</th>
           <th scope="col">Price</th>
-          <th scope="col">Qty</th>
+          <!--<th scope="col">Qty</th>-->
           <th scope="col">Link</th>
-          <th scope="col">Get</th>
         </tr>
       </thead>
       <tbody>
@@ -32,7 +31,7 @@
               @input="updateItemPrice(index, item.price)"
             />
           </td>
-          <td> {{ item.qty }} </td>
+          <!--<td> {{ item.qty }} </td>-->
           <td>
             <a
               :href="generateLink(item.description)"

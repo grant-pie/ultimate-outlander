@@ -25,10 +25,11 @@
           <td>
             <p>{{ content.stack_size }}</p>
           </td>
+          <td>{{ calculateTotal(content.item.price, content.stack_size) }}</td>
           <td>
             <button @click="copyGetItemScript(containerID, content.item.id)" class="btn btn-primary">Get</button>
           </td>
-          <td>{{ calculateTotal(content.item.price, content.stack_size) }}</td>
+
         </tr>
       </tbody>
       <tfoot>
