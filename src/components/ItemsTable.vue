@@ -60,8 +60,7 @@ export default {
           (item) =>
             typeof item.description === "string" &&
             typeof item.type === "string" &&
-            typeof item.price === "number" &&
-            typeof item.qty === "number"
+            typeof item.price === "number"
         ),
     },
   },
