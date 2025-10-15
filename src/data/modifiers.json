@@ -67,7 +67,7 @@
     "spellbooks": [
         {
             "category": "durability",
-            "modifier": [
+            "modifiers": [
                 { "modifier": "durable", "bonus": "+100" },
                 { "modifier": "substantial", "bonus": "+150" },
                 { "modifier": "massive", "bonus": "+200" },
@@ -77,7 +77,7 @@
         },
         {
             "category": "potency",
-            "modifier": [
+            "modifiers": [
                 { "modifier": "potent", "bonus": "+5%" },
                 { "modifier": "surpassingly potent", "bonus": "+10%" },
                 { "modifier": "eminently potent", "bonus": "+15%" },
@@ -87,7 +87,7 @@
         },
         {
             "category": "damage",
-            "modifier": [
+            "modifiers": [
                 { "modifier": "ruin", "bonus": "+5%" },
                 { "modifier": "might", "bonus": "+10%" },
                 { "modifier": "force", "bonus": "+15%" },
@@ -97,7 +97,7 @@
         },
         {
             "category": "slayer",
-            "modifier": [
+            "modifiers": [
                 { "modifier": "lesser", "bonus": "+15%" },
                 { "modifier": "slaying", "bonus": "+20%" },
                 { "modifier": "greater", "bonus": "+25%" }

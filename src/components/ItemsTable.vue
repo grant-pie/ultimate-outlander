@@ -34,7 +34,7 @@
           <!--<td> {{ item.qty }} </td>-->
           <td>
             <a
-              :href="generateLink(item.description)"
+              :href="generateLink(item.description, item.type)"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -86,9 +86,13 @@ export default {
         ...this.items.slice(index + 1),
       ]);
     },
-    generateLink(description) {
+    generateLink(description, itemType) {
       const baseUrl =
         "https://portal.uooutlands.com/vendor-search?searchTerm=";
+        if (itemType === "skill mastery scroll") {
+          //here we need to replace text to match the uooutlands search
+          description = description.replace(" (used to increase a player's skill cap for a skill by 1)", "");
+        }
       const query = encodeURIComponent(description);
       const sortParams = "&sortActive=Price&sortDirection=asc";
       return `${baseUrl}${query}${sortParams}`;
