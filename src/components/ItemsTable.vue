@@ -66,7 +66,7 @@
       </thead>
       <tbody id="items-table-body">
         <tr v-for="(item, index) in sortedItems" :key="index">
-          <td>{{ item.description.toUpperCase() }}</td>
+          <td>{{ item.description }}</td>
           <td>{{ item.type }}</td>
           <td>
             <label :for="'price-' + index" class="visually-hidden">
@@ -235,13 +235,7 @@ export default {
       const query = encodeURIComponent(description);
       const sortParams = "&sortActive=Price&sortDirection=asc";
       return `${baseUrl}${query}${sortParams}`;
-    },
-    ConvertToCamelCase(str) {
-    return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
-      if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
-      return index === 0 ? match.toLowerCase() : match.toUpperCase();
-    });
-  }
+    }
     
   },
   
