@@ -1497,6 +1497,7 @@ onMounted(() => {
             </div>
         </div>
         <div class="card-body d-flex flex-column justify-content-center">
+          <p>The script stores all items in a vendor owned container, which price must be set to "not for sale". If you select the root container of your vendor, the items will stack and prices will be incorrect. If you select a vendor owned container which price has not been set to "not for sale" the item prices will not be set.</p>
           <img src="/images/store_menu.jpg" class="w-50 mx-auto">
           <div 
           v-for="container in containers" :key="container.id"
