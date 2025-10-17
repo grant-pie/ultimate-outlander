@@ -3,52 +3,132 @@
     <div class="d-flex justify-content-between align-items-center mb-2">
       <div class="d-flex flex-column">
         <h5>Container Contents</h5>
-      <p>Item Count: {{ containerContents.length }}</p>
+        <p>Item Count: {{ containerContents.length }}</p>
       </div>
+      <label for="container-search" class="visually-hidden">Search container contents</label>
       <input
+        id="container-search"
         type="text"
-        class="form-control w-25"
+        class="form-control w-25 bg-dark border-light text-light"
         v-model="searchQuery"
         placeholder="Search..."
+        aria-label="Search container contents by description"
+        role="searchbox"
+        :aria-controls="'container-table-' + containerID"
       />
     </div>
-    <table class="table table-striped table-hover">
+    <div 
+    role="status" 
+    aria-live="polite" 
+    aria-atomic="true"
+    class="visually-hidden"
+    >
+    {{ copyStatus }}
+    </div>
+    <div class="table-responsive">
+      <table class="table table-dark table-striped table-hover">
       <thead>
         <tr>
-          <th scope="col">Item Description</th>
-          <th scope="col">Item Serial</th>
-          <th scope="col">Price</th>
-
+          <th 
+            scope="col"
+            :aria-sort="getSortDirection('description')"
+            @click="sortBy('description')"
+            class="sortable-header"
+            role="button"
+            tabindex="0"
+            @keypress.enter="sortBy('description')"
+          >
+            Item Description
+            <span class="sort-icon" aria-hidden="true">{{ getSortIcon('description') }}</span>
+          </th>
+          <th 
+            scope="col"
+            :aria-sort="getSortDirection('id')"
+            @click="sortBy('id')"
+            class="sortable-header"
+            role="button"
+            tabindex="0"
+            @keypress.enter="sortBy('id')"
+          >
+            Item Serial
+            <span class="sort-icon" aria-hidden="true">{{ getSortIcon('id') }}</span>
+          </th>
+          <th 
+            scope="col"
+            :aria-sort="getSortDirection('price')"
+            @click="sortBy('price')"
+            class="sortable-header"
+            role="button"
+            tabindex="0"
+            @keypress.enter="sortBy('price')"
+          >
+            Price
+            <span class="sort-icon" aria-hidden="true">{{ getSortIcon('price') }}</span>
+          </th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(content, index) in filteredContents" :key="index">
+        <tr v-for="(content, index) in sortedContents" :key="index">
           <td>{{ content.item.description }}</td>
           <td>{{ content.item.id }}</td>
           <td>{{ content.item.price }}</td>
           <td class="d-flex">
 
-            <button @click="$emit('removeItem', content.item.id)" class="btn btn-primary btn-sm font-size-6">Remove</button>
-            <button @click="copyGetItemScript(content.item.id, $event)" :id="'copyStockScriptBtn_' + content.item.id" class="btn ms-2 btn-primary btn-sm font-size-6">Copy Get Item Script</button>
-
+            <button 
+              @click="$emit('removeItem', content.item.id)" 
+              class="btn btn-primary btn-sm"
+              :aria-label="'Remove ' + content.item.description + ' from container'"
+              type="button"
+            >
+              <span aria-hidden="true">🗑️</span>
+            </button>
+            <button 
+            @click="copyGetItemScript(content.item.id, $event)" 
+            :id="'copyGetItemScriptBtn_' + content.item.id"
+            class="btn ms-2 btn-primary btn-sm"
+            :aria-label="'Copy script to get ' + content.item.description"
+          >
+          
+            Copy Get Item Script
+          </button>
           </td>
 
         </tr>
       </tbody>
       <tfoot>
-        <tr>
-          <td colspan="4" class="text-end"><strong>Grand Total:</strong></td>
-          <td>{{ grandTotal }}</td>
+      <tr>
+        <th colspan="3" scope="row" class="text-end">Grand Total:</th>
+          <td>
+            <strong aria-label="Grand total: {{ grandTotal }} gold">
+              {{ grandTotal }}
+            </strong>
+          </td>
         </tr>
       </tfoot>
     </table>
+    </div>
     <button 
-    :id="'exportContentsBtn_' + containerID"  type="button" class="btn w-100 btn-primary mb-4" @click="exportContents(containerContents)">Export Contents
+      type="button" 
+      class="btn w-100 btn-primary mb-4" 
+      @click="exportContents(containerContents)"
+      :aria-label="'Export contents of container ' + containerID + ' as JSON'"
+      aria-describedby="exportHelp"
+    >
+      <span aria-hidden="true">💾</span> Export Contents
     </button>
+    <div id="exportHelp" class="visually-hidden">
+      Downloads a JSON file with all items in this container
+    </div>
     <button 
-    :id="'copyStockScriptBtn_' + containerID"  type="button" class="btn w-100 btn-primary " @click="copyVendorStockScript(containerContents, $event)">Copy Vendor Stock Script
-    </button>
+    :id="'copyStockScriptBtn_' + containerID"  
+    type="button" 
+    class="btn w-100 btn-primary" 
+    @click="copyVendorStockScript(containerContents)"
+    aria-label="Copy vendor stock script to clipboard"
+  >      <span aria-hidden="true">📋</span>
+    Copy Vendor Stock Script
+  </button>
   </div>
 </template>
 
@@ -73,7 +153,10 @@ export default {
   },
   data() {
     return {
-      searchQuery: "", // Holds the search input value
+      searchQuery: "",
+      copyStatus: "",
+      sortColumn: null,
+      sortDirection: 'asc'
     };
   },
   computed: {
@@ -84,13 +167,60 @@ export default {
           .includes(this.searchQuery.toLowerCase())
       );
     },
+    sortedContents() {
+      if (!this.sortColumn) {
+        return this.filteredContents;
+      }
+
+      return [...this.filteredContents].sort((a, b) => {
+        let aVal = a.item[this.sortColumn];
+        let bVal = b.item[this.sortColumn];
+
+        // Handle string comparison (case-insensitive)
+        if (typeof aVal === 'string' && typeof bVal === 'string') {
+          aVal = aVal.toLowerCase();
+          bVal = bVal.toLowerCase();
+        }
+
+        let comparison = 0;
+        if (aVal > bVal) {
+          comparison = 1;
+        } else if (aVal < bVal) {
+          comparison = -1;
+        }
+
+        return this.sortDirection === 'asc' ? comparison : -comparison;
+      });
+    },
     grandTotal() {
-      return this.filteredContents.reduce((sum, content) => {
+      return this.sortedContents.reduce((sum, content) => {
         return sum + content.item.price;
       }, 0);
     },
   },
   methods: {
+    sortBy(column) {
+      if (this.sortColumn === column) {
+        // Toggle direction if clicking the same column
+        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        // New column, default to ascending
+        this.sortColumn = column;
+        this.sortDirection = 'asc';
+      }
+    },
+    getSortIcon(column) {
+      if (this.sortColumn !== column) {
+        return '⇅';
+      }
+      return this.sortDirection === 'asc' ? '↑' : '↓';
+    },
+    getSortDirection(column) {
+      if (this.sortColumn !== column) {
+        return 'none';
+      }
+      return this.sortDirection === 'asc' ? 'ascending' : 'descending';
+    },
     calculateTotal(price, stack_size) {
       return price * stack_size;
     },
@@ -103,29 +233,34 @@ export default {
         console.error("Failed to copy text: ", err);
       });
     },
-    copyGetItemScript(itemID, event){
-      const text =  `
-          
+    copyGetItemScript(itemID, event) {
+      const text = `
         lift ${itemID}
-        
         wait 250
-        
         drop backpack
-
-        `;
-      this.copyToClipboard(text);
-      const copyScriptBtn = event.target;
-      copyScriptBtn.innerText = 'Copied!'
-      window.setTimeout(() => {
+      `;
       
-        const copyScriptBtn = document.getElementById('copyStockScriptBtn_' + itemID);
-        copyScriptBtn.innerText = 'Copy Stock Script'
-      }, 2000)
-      return this.copyToClipboard(textToCopy);
+      this.copyToClipboard(text);
+      
+      // Announce to screen readers
+      this.copyStatus = 'Script copied to clipboard';
+      
+      // Update button text
+      const copyScriptBtn = event.target;
+      const originalText = copyScriptBtn.textContent;
+      copyScriptBtn.textContent = 'Copied!';
+      
+      window.setTimeout(() => {
+        const btn = document.getElementById('copyGetItemScriptBtn_' + itemID);
+        if (btn) {
+          btn.textContent = originalText;
+        }
+        // Clear the announcement
+        this.copyStatus = '';
+      }, 2000);
     },
-    copyVendorStockScript(itemsToStock, event) {
-      console.log({log:itemsToStock})
-      let textToCopy = `wft 500
+    generateVendorStockScript(itemsToStock) {
+       let textToCopy = `wft 500
 
         overhead "Select vendor owned container to store items. If you select your vendor's root backpack, items will stack and prices will be incorrect."
         setvar vendor_container
@@ -147,59 +282,67 @@ export default {
 
       textToCopy += `if not listexists itemPrices
 
-        createlist itemPrices
+          createlist itemPrices
 
-    else
+      else
 
-        clearlist itemPrices
+          clearlist itemPrices
 
-    endif \n`
+      endif \n`
 
       itemsToStock.forEach((item) => {
         textToCopy += `pushlist itemPrices '${item.item.price}'` + `\n`
       });
 
       textToCopy += `
-    overhead "First we add items to vendor and set prices"
-    foreach id in itemIDs
-        overhead id
-        
-        wait 250
-        
-        lift id
-        
-        wait 250
-            
-        drop vendor_container 1 0
+      overhead "First we add items to vendor and set prices"
+      foreach id in itemIDs
+          overhead id
+          
+          wait 250
+          
+          lift id
+          
+          wait 250
+              
+          drop vendor_container 1 0
 
-        wait 250
+          wait 250
 
-        //here we set price
-        pause 500
-        if poplist 'itemPrices' front as 'price'
-            overhead 'price'
-            promptresponse 'price'
-        endif
+          //here we set price
+          pause 500
+          if poplist 'itemPrices' front as 'price'
+              overhead 'price'
+              promptresponse 'price'
+          endif
 
-        wait 250
-        
-        ignore item
+          wait 250
+          
+          ignore item
 
 
-    endfor
-    clearignore
+      endfor
+      clearignore
 
-    overhead "Your items have been added and priced, don't forget to check if prices had been set correctly."
-    `
+      overhead "Your items have been added and priced, don't forget to check if prices had been set correctly."
+      `
 
-      const copyScriptBtn = event.target;
-      copyScriptBtn.innerText = 'Copied!'
-      window.setTimeout(() => {
-      
+      return textToCopy;
+    },
+
+    copyVendorStockScript(itemsToStock) {
+      const script = this.generateVendorStockScript(itemsToStock);
+      navigator.clipboard.writeText(script).then(() => {
         const copyScriptBtn = document.getElementById('copyStockScriptBtn_' + this.containerID);
-        copyScriptBtn.innerText = 'Copy Stock Script'
-      }, 2000)
-      return this.copyToClipboard(textToCopy);
+        if (copyScriptBtn) {
+          const originalHTML = copyScriptBtn.innerHTML; // Store original HTML
+          copyScriptBtn.innerHTML = '<span aria-hidden="true">✓</span> Copied!';
+          window.setTimeout(() => {
+            const btn = document.getElementById('copyStockScriptBtn_' + this.containerID);
+            if (btn) btn.innerHTML = originalHTML; // Restore original HTML
+          }, 2000);
+        }
+      });
     },
     exportContents(contents) {
       const dataStr = JSON.stringify(contents, null, 2);
@@ -220,5 +363,31 @@ export default {
 </script>
 
 <style scoped>
-/* Additional styles can go here if needed */
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.sort-icon {
+  margin-left: 0.5rem;
+  font-size: 0.9em;
+  opacity: 0.6;
+}
+
+.sortable-header:hover .sort-icon {
+  opacity: 1;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 </style>

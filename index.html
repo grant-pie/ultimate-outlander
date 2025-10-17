@@ -2,21 +2,62 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ultimate Outlander: Container Catalog and Vendor Stock</title>
+    <title>Ultimate Outlander</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <style>
+    .font-cinzel {
+      font-family: "Cinzel", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+    }
+  </style>
   </head>
-  <body>
-    <div class="d-flex justify-content-center bg-primary">
-      <img src="./images/logo.png" alt="" height="50" width="50">
-      <p class="text-white mt-3 mx-4">Ultimate Outlander: Container Catalog and Vendor Stock</p>
-      <img src="./images/logo.png" alt="" height="50" width="50">
-    </div>
-    <div id="app" class="container"></content>
 
-    <footer>
-      <div class="d-flex justify-content-center bg-primary text-white p-2">
-        <p>
+  <body>
+    <div class="d-flex flex-column justify-content-md-center bg-secondary p-4">
+      <div class="d-flex flex-column flex-md-row justify-content-center">
+        <img class="d-none d-md-block" src="images/logo.png" alt="" height="125">
+        <div class="d-flex flex-md-column align-items-center">
+
+            <img class="d-md-none" src="images/logo.png" alt="" height="125">
+            <h1 class="text-white mt-3 mx-4 font-cinzel">Ultimate Outlander</h1>
+            <h6 class="d-none d-md-block text-center mt-4 font-cinzel">Container Catalog and Vendor Stock Script Generator</h6>
+          
+      
+        </div>
+
+      
+        <h6 class="d-md-none text-center mt-4 font-cinzel">Container Catalog and Vendor Stock Script Generator</h6>
+      </div>
+      <div class=" align-self-center mt-3">
+        <a href="https://www.buymeacoffee.com/grantpie" target="_blank">
+          <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" 
+              alt="Buy Me A Coffee" 
+              height="40">
+        </a>
+      </div>
+      
+
+
+    </div>
+    <content id="app" class="container"></content>
+
+    <footer
+    class="bg-secondary p-4 d-flex flex-column align-items-center">
+      <p>Keep Ultimate Outlander Online:</p>
+      <a href="https://www.buymeacoffee.com/grantpie" target="_blank">
+        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" 
+            alt="Buy Me A Coffee" 
+            height="40">
+      </a>
     </footer>
     <script type="module" src="/src/main.js"></script>
   </body>
