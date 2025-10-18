@@ -143,12 +143,12 @@ function validateTextInput(text) {
   const suspiciousPatterns = [
     /<script[^>]*>.*?<\/script>/gi,
     /javascript:/gi,
-    /on\w+\s*=/gi,
+    /\bon(abort|blur|change|click|dblclick|error|focus|keydown|keypress|keyup|load|mousedown|mousemove|mouseout|mouseover|mouseup|reset|resize|select|submit|unload)\s*=/gi,
   ];
   
   for (const pattern of suspiciousPatterns) {
     if (pattern.test(trimmedText)) {
-      errors.push('Input contains potentially malicious content');
+      errors.push('Input contains potentially malicious content.');
       break;
     }
   }

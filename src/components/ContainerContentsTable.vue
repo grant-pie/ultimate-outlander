@@ -70,7 +70,7 @@
       </thead>
       <tbody>
         <tr v-for="(content, index) in sortedContents" :key="index">
-          <td>{{ content.item.description }}</td>
+          <td>{{ toTitleCase(content.item.description) }}</td>
           <td>{{ content.item.id }}</td>
           <td>{{ content.item.price }}</td>
           <td class="d-flex">
@@ -356,6 +356,44 @@ export default {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     },
+    toTitleCase(str) {
+      if (!str) return '';
+      
+      const smallWords = /^(a|an|and|as|at|but|by|for|from|in|into|of|on|or|the|to|with)$/i;
+      
+      return str
+        .toLowerCase()
+        .split(' ')
+        .map((word, index, array) => {
+          // Check if word starts with a special character
+          const startsWithSpecial = /^[^a-zA-Z0-9]/.test(word);
+          
+          if (startsWithSpecial && word.length > 1) {
+            // Keep the special character(s) and capitalize the first letter
+            const firstLetterIndex = word.search(/[a-zA-Z]/);
+            if (firstLetterIndex !== -1) {
+              return word.slice(0, firstLetterIndex) + 
+                    word.charAt(firstLetterIndex).toUpperCase() + 
+                    word.slice(firstLetterIndex + 1);
+            }
+            return word;
+          }
+          
+          // Always capitalize first and last word
+          if (index === 0 || index === array.length - 1) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+          }
+          
+          // Don't capitalize small words
+          if (smallWords.test(word)) {
+            return word;
+          }
+          
+          // Capitalize everything else
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(' ');
+    }
    
   }
  
