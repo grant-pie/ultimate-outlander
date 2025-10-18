@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card-header bg-dark text-light d-flex justify-content-between align-items-center">
-      <h5>Items Table</h5>
+      <h5>Item Pricing Table</h5>
       <label for="items-search" class="visually-hidden">Search items</label>
       <input
         id="items-search"

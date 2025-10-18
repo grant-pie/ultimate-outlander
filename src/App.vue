@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
-import ItemsTable from './components/ItemsTable.vue';
+import ItemsPricingTable from './components/ItemPricingTable.vue';
 import ContainerContentsTable from './components/ContainerContentsTable.vue';
 import ItemTypes from "./data/item_types.json";
 
@@ -1449,7 +1449,7 @@ onMounted(() => {
     </div>
     <!--step 3-->
 
-    <!--step 4 Items-->
+    <!--step 4 Pricing-->
     <div class="row mb-4"  v-show="items.length > 0">
 
       <div class="card mx-auto p-0">
@@ -1462,7 +1462,7 @@ onMounted(() => {
         </div>
         <div class="card-body d-flex flex-column justify-content-center">
 
-          <ItemsTable 
+          <ItemsPricingTable
           :items="items"
           @update:items="updateContainerContentsPrices($event)"
           />
