@@ -57,7 +57,6 @@ Aspect Cores (including Chroma Cores)
 Aspect Distillations
 Skill Mastery Scrolls
 Treasure Maps
-Rare Cloth
 
 Equipment
 
