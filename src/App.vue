@@ -14,6 +14,8 @@ const isProcessing = ref(false);
 const processingStage = ref('');
 const processingProgress = ref(0);
 
+const showFaq = ref(false);
+
 const hasData = computed(() => items.value.length > 0 || containers.value.length > 0);
 
 
@@ -1287,6 +1289,107 @@ onMounted(() => {
     </div>
     <!--heading stuff for SEO-->
 
+    <!--FAQ/Information Section-->
+    <div class="row mb-4">
+      <div class="card mx-auto p-0">
+        <div class="card-header bg-primary text-light">
+          <button 
+            class="btn btn-link text-white text-decoration-none w-100 text-start d-flex justify-content-between align-items-center p-0"
+            type="button"
+            @click="showFaq = !showFaq"
+            :aria-expanded="showFaq"
+            aria-controls="faq-content"
+          >
+            <span>About Ultimate Outlander & FAQ</span>
+            <span aria-hidden="true">{{ showFaq ? '−' : '+' }}</span>
+          </button>
+        </div>
+        <div 
+          v-show="showFaq"
+          id="faq-content"
+          class="card-body"
+        >
+          <h2 class="h5">What is Ultimate Outlander?</h2>
+          <p>
+            Ultimate Outlander is a free web-based tool designed specifically for Ultima Online Outlands players 
+            who want to streamline their vendor management process. This vendor script generator helps you automate 
+            the tedious task of cataloging container contents and restocking vendor inventory. Whether you're managing 
+            phylacteries, aspect cores, aspect distillations, skill mastery scrolls, maps, equipment, or other valuable 
+            items, Ultimate Outlander makes the process efficient and error-free.
+          </p>
+
+          <h2 class="h5 mt-4">How Does the Container Catalog Work?</h2>
+          <p>
+            The catalog tool works by generating Razor scripts that systematically identify and log every item in your 
+            containers. When you run the catalog script in Razor, it creates a detailed journal log of all items, 
+            including their unique serial numbers. You can then import this journal log into Ultimate Outlander, where 
+            the tool parses the data and organizes it into an easy-to-manage pricing table. This eliminates manual 
+            counting and reduces pricing errors when stocking your vendor.
+          </p>
+
+          <h2 class="h5 mt-4">What is a Vendor Stock Script?</h2>
+          <p>
+            A vendor stock script is an automated Razor script that takes items from a container and places them on 
+            your vendor with the correct prices already set. Instead of manually dragging each item to your vendor 
+            and typing in prices one by one, the vendor stock script does all the work for you. Ultimate Outlander 
+            generates these scripts based on your catalog data and the prices you've set, ensuring every item is 
+            priced accurately and consistently.
+          </p>
+
+          <h2 class="h5 mt-4">Why Use Ultimate Outlander for UO Outlands?</h2>
+          <p>
+            Managing a vendor in Ultima Online Outlands can be time-consuming, especially when dealing with rare items 
+            like aspect cores, phylacteries, and skill scrolls that have varying market values. Ultimate Outlander 
+            saves you hours by automating the cataloging process and script generation. The tool helps you maintain 
+            competitive pricing by allowing you to quickly reference market prices through integrated vendor search 
+            links. You can export your item pricing data as JSON for backup and reuse it across multiple restocking 
+            sessions.
+          </p>
+
+          <h2 class="h5 mt-4">Supported Item Types</h2>
+          <p>
+            Ultimate Outlander currently supports a wide range of item types commonly sold by Ultima Online Outlands 
+            vendors. The loot catalog script handles phylacteries, aspect cores (including chroma cores), aspect 
+            distillations, skill mastery scrolls (used to increase skill caps), treasure maps. The 
+            equipment catalog script covers all armor types including leather, studded, ringmail, chainmail, and 
+            platemail armor pieces. It also catalogs weapons such as swords, axes, maces, staves, bows, crossbows, 
+            daggers, spears, musical instruments, shields, and parrying daggers. Support for additional item types 
+            is continuously being added based on community feedback. You can easily edit the item catalog script to add more items but take note that not all items are properly supported yet.
+          </p>
+
+          <h2 class="h5 mt-4">How to Use Razor Scripts with ClassicUO</h2>
+          <p>
+            Razor is a popular assistant tool for ClassicUO that enables scripting and automation. To use Ultimate 
+            Outlander's generated scripts, simply copy the script text and paste it into Razor's script editor. Run 
+            the catalog script first to generate your journal log, which you'll find in your ClassicUO folder under 
+            ClassicUO\Data\Client\JournalLogs. After importing the journal log into Ultimate Outlander and setting your prices, 
+            generate and run the vendor stock script to automatically place items on your vendor with correct pricing.
+          </p>
+
+          <h2 class="h5 mt-4">Tips for Pricing Your Items</h2>
+          <p>
+            Competitive pricing is crucial for vendor success in UO Outlands. Use the integrated vendor search links 
+            in the pricing table to quickly check current market prices for each item. Consider pricing slightly below 
+            competitors for fast-moving items, or hold firm on rare items with limited supply. The export feature 
+            lets you save your pricing structure, making it easy to maintain consistent prices across restocking 
+            sessions. Always double-check prices in-game before finalizing, especially for high-value items like 
+            rare phylacteries or perfect aspect cores.
+          </p>
+
+          <h2 class="h5 mt-4">Troubleshooting Common Issues</h2>
+          <p>
+            If your journal log isn't importing correctly, ensure you copied the complete log including the catalog 
+            start and end markers. If you run the item catalog script but you see that it doesn't catalog any items, make sure that your avatar is standing close enough to the container being cataloged.The tool requires logs generated by the Ultimate Outlander catalog scripts to 
+            parse correctly. If item prices aren't being set on your vendor, verify that you selected a vendor-owned 
+            container that is set to "not for sale" rather than the vendor's root backpack. Items placed in the root 
+            backpack will stack together, causing pricing issues. If you find that prices are not being set, make sure that you disabled the "Use Item Pricing Menu" checkbox in the store menu. If you encounter any bugs or have feature requests, 
+            please use the feedback form to help improve Ultimate Outlander.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--End FAQ-->
+
     <!--step 1 Copy and run script-->
     <div id="step-1" class="row mb-4">
 
@@ -1374,7 +1477,7 @@ onMounted(() => {
       </div>
 
     </div>
-    <!--step 1-->
+    <!--end step 1-->
 
     <!--step 2 Copy Journal text-->
     <div id="step-2" class="row mb-4">
@@ -1397,7 +1500,7 @@ onMounted(() => {
       </div>
 
     </div>
-    <!--step 2-->
+    <!--end step 2-->
 
     <!--step 3 Import-->
     <div id="step-3" class="row mb-4">
@@ -1478,7 +1581,7 @@ onMounted(() => {
       </div>
 
     </div>
-    <!--step 3-->
+    <!--end step 3-->
 
     <!--step 4 Pricing-->
     <div id="step-4" class="row mb-4"  v-show="items.length > 0">
@@ -1514,7 +1617,7 @@ onMounted(() => {
       </div>
 
     </div>
-    <!--step 4-->
+    <!--end step 4-->
 
     <!--step 5 Containers-->
     <div id="step-5" class="row mb-4" v-show="containers.length > 0">
@@ -1587,7 +1690,7 @@ onMounted(() => {
       </div>
 
     </div>
-    <!--step 5-->
+    <!--end step 5-->
 
     
     <!--step 6 Check prices-->
@@ -1609,7 +1712,7 @@ onMounted(() => {
       </div>
 
     </div>
-    <!--step 6-->
+    <!--end step 6-->
   </div>
 
   <a href="#" class="back-to-top btn btn-primary" aria-label="Back to top">
