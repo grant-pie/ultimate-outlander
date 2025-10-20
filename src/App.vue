@@ -1256,8 +1256,39 @@ onMounted(() => {
     </div>
     <!--Loading-->
 
+    <!-- quick nav -->
+    <nav class="mb-4 row" aria-label="Page navigation">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Quick Navigation:</h6>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="#step-1" class="btn btn-sm btn-outline-primary">Step 1: Scripts</a>
+            <a href="#step-2" class="btn btn-sm btn-outline-primary">Step 2: Journal Log</a>
+            <a href="#step-3" class="btn btn-sm btn-outline-primary">Step 3: Import</a>
+            <a v-show="items.length > 0" href="#step-4" class="btn btn-sm btn-outline-primary">Step 4: Pricing</a>
+            <a v-show="containers.length > 0" href="#step-5" class="btn btn-sm btn-outline-primary">Step 5: Vendor Script</a>
+            <a v-show="items.length > 0" href="#step-6" class="btn btn-sm btn-outline-primary">Step 6: Verification</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!--quick nav-->
+
+    <!--heading stuff for SEO-->
+    <div class="row my-4">
+      <div class="alert alert-info" role="region" aria-label="Welcome message">
+        <h2 class="h5">Welcome to Ultimate Outlander</h2>
+        <p>
+          <strong>Ultimate Outlander</strong> is a free tool designed to help Ultima Online Outlands 
+          players efficiently manage their vendor inventory. Generate catalog scripts for Razor, 
+          import container contents, set prices, and create vendor restock scripts automatically.
+        </p>
+      </div>
+    </div>
+    <!--heading stuff for SEO-->
+
     <!--step 1 Copy and run script-->
-    <div class="row mb-4">
+    <div id="step-1" class="row mb-4">
 
       <div class="card mx-auto p-0">
 
@@ -1346,7 +1377,7 @@ onMounted(() => {
     <!--step 1-->
 
     <!--step 2 Copy Journal text-->
-    <div class="row mb-4">
+    <div id="step-2" class="row mb-4">
 
       <div class="card mx-auto p-0">
 
@@ -1369,7 +1400,7 @@ onMounted(() => {
     <!--step 2-->
 
     <!--step 3 Import-->
-    <div class="row mb-4">
+    <div id="step-3" class="row mb-4">
 
       <div class="card mx-auto p-0">
         <div class="card-header bg-primary text-light">
@@ -1450,7 +1481,7 @@ onMounted(() => {
     <!--step 3-->
 
     <!--step 4 Pricing-->
-    <div class="row mb-4"  v-show="items.length > 0">
+    <div id="step-4" class="row mb-4"  v-show="items.length > 0">
 
       <div class="card mx-auto p-0">
 
@@ -1486,7 +1517,7 @@ onMounted(() => {
     <!--step 4-->
 
     <!--step 5 Containers-->
-    <div class="row mb-4" v-show="containers.length > 0">
+    <div id="step-5" class="row mb-4" v-show="containers.length > 0">
 
       <div class="card mx-auto p-0 ">
     
@@ -1498,7 +1529,7 @@ onMounted(() => {
         </div>
         <div class="card-body d-flex flex-column justify-content-center">
           <p>The script stores all items in a vendor owned container, which price must be set to "not for sale". If you select the root container of your vendor, the items will stack and prices will be incorrect. If you select a vendor owned container which price has not been set to "not for sale" the item prices will not be set.</p>
-          <img src="/images/store_menu.jpg" class="w-25 mx-auto">
+          <img src="/images/store_menu.jpg" alt="store menu" class="w-25 mx-auto">
           <div 
           v-for="container in containers" :key="container.id"
           class="row mt-5 ">
@@ -1560,7 +1591,7 @@ onMounted(() => {
 
     
     <!--step 6 Check prices-->
-    <div class="row mb-4"  v-show="items.length > 0">
+    <div id="step-6" class="row mb-4"  v-show="items.length > 0">
 
       <div class="card mx-auto p-0">
         <div class="card-header bg-primary text-light">
@@ -1581,9 +1612,25 @@ onMounted(() => {
     <!--step 6-->
   </div>
 
+  <a href="#" class="back-to-top btn btn-primary" aria-label="Back to top">
+  ↑ Top
+  </a>
 </template>
 
 <style scoped>
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .loading-overlay {
   position: fixed;
   top: 0;
