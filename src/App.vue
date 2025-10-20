@@ -1419,7 +1419,6 @@ onMounted(() => {
                   <li class="list-group-item">Skill Scrolls</li>
                   <li class="list-group-item">Phylacteries</li>
                   <li class="list-group-item">Maps</li>
-                  <li class="list-group-item">Rare Cloth</li>
                   <li class="list-group-item">More coming soon...</li>
                 </ul>
 
