@@ -491,8 +491,6 @@ function parseItems(logData) {
             continue;
           }
 
-          console.log(`Line ${i}: Found description: "${description}"`);
-
           for (let j = i + 1; j < lines.length; j++) {
             const lookAheadLine = lines[j];
             
@@ -504,7 +502,6 @@ function parseItems(logData) {
               lookAheadLine.includes('to ignore list')) {
               const idMatch = lookAheadLine.match(/Added (\d+) to/);
               if (idMatch && idMatch[1]) {
-                console.log(`Pushing: ${description} -> ${idMatch[1]}`);
                 parsedItems.push({
                   description,
                   id: idMatch[1],
@@ -589,8 +586,6 @@ async function parseInput() {
     isProcessing.value = true;
     processingProgress.value = 0;
     processingStage.value = 'Validating input...';
-    
-    console.log("parsing input");
     
     // Simulate async delay for UI feedback
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -744,7 +739,6 @@ async function parseInput() {
       
       processingProgress.value = 100;
       statusMessage.value = `Successfully imported ${containers.value.length} container(s) with ${totalItems} items`;
-      console.log({ items: items.value, containers: containers.value });
       
       // Reset loading state after brief delay
       setTimeout(() => {
@@ -1185,9 +1179,7 @@ function removeItemFromContainer(containerId, itemID) {
 }
 
 function updateContainerContentsPrices(){
-  if (containers.value.length > 0) {
-    console.log('Updating container prices');
-    
+  if (containers.value.length > 0) {   
     // Create a lookup map for better performance
     const itemsMap = new Map(items.value.map(item => [item.description, item]));
     
