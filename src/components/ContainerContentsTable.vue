@@ -1,3 +1,270 @@
+<script setup>
+import { ref, computed } from 'vue';
+
+const props = defineProps({
+  containerID: {
+    type: Number,
+    required: true,
+  },
+  containerContents: {
+    type: Array,
+    required: true,
+    validator: (contents) =>
+      contents.every(
+        (content) =>
+          typeof content.item === "object" &&
+          typeof content.item.description === "string"
+      ),
+  },
+})
+
+const searchQuery = ref("");
+const copyStatus =  ref("");
+const sortColumn= ref(null);
+const sortDirection = ref('asc');
+
+const filteredContents = computed(() => {
+  return props.containerContents.filter((content) =>
+    content.item.description
+      .toLowerCase()
+      .includes(searchQuery.value.toLowerCase())
+  );
+})
+
+const sortedContents = computed(() => {
+  if (!sortColumn.value) {
+    return filteredContents.value;
+  }
+
+  return [...filteredContents.value].sort((a, b) => {
+    let aVal = a.item[sortColumn.value];
+    let bVal = b.item[sortColumn.value];
+
+    // Handle string comparison (case-insensitive)
+    if (typeof aVal === 'string' && typeof bVal === 'string') {
+      aVal = aVal.toLowerCase();
+      bVal = bVal.toLowerCase();
+    }
+
+    let comparison = 0;
+    if (aVal > bVal) {
+      comparison = 1;
+    } else if (aVal < bVal) {
+      comparison = -1;
+    }
+
+    return sortDirection.value === 'asc' ? comparison : -comparison;
+  });
+})
+
+const grandTotal = computed(() => {
+  return sortedContents.value.reduce((sum, content) => {
+    return sum + content.item.price;
+  }, 0);
+})
+
+function sortBy(column) {
+  if (sortColumn.value === column) {
+    // Toggle direction if clicking the same column
+    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+  } else {
+    // New column, default to ascending
+    sortColumn.value = column;
+    sortDirection.value = 'asc';
+  }
+}
+
+function getSortIcon(column) {
+  if (sortColumn.value !== column) {
+    return '⇅';
+  }
+  return sortDirection.value === 'asc' ? '↑' : '↓';
+}
+
+function getSortDirection(column) {
+  if (sortColumn.value !== column) {
+    return 'none';
+  }
+  return sortDirection.value === 'asc' ? 'ascending' : 'descending';
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+  .then(() => {
+    console.log("Text copied to clipboard:", text);
+  })
+  .catch(err => {
+    console.error("Failed to copy text: ", err);
+  });
+}
+
+function copyGetItemScript(itemID, event) {
+  const text = `
+    lift ${itemID}
+    wait 250
+    drop backpack
+  `;
+  
+  copyToClipboard(text);
+  
+  // Announce to screen readers
+  copyStatus.value = 'Script copied to clipboard';
+  
+  // Update button text
+  const copyScriptBtn = event.target;
+  const originalText = copyScriptBtn.textContent;
+  copyScriptBtn.textContent = 'Copied!';
+  
+  window.setTimeout(() => {
+    const btn = document.getElementById('copyGetItemScriptBtn_' + itemID);
+    if (btn) {
+      btn.textContent = originalText;
+    }
+    // Clear the announcement
+    copyStatus.value = '';
+  }, 2000);
+}
+
+function generateVendorStockScript(itemsToStock) {
+  let textToCopy = `wft 500
+
+  overhead "Select vendor owned container to store items. If you select your vendor's root backpack, items will stack and prices will be incorrect."
+  setvar vendor_container
+
+  if not listexists itemIDs
+
+      createlist itemIDs
+
+    else
+
+      clearlist itemIDs
+
+  endif
+  \n`
+
+itemsToStock.forEach((item) => {
+  textToCopy += `pushlist itemIDs '${item.item.id}'` + `\n`
+});
+
+textToCopy += `if not listexists itemPrices
+
+    createlist itemPrices
+
+else
+
+    clearlist itemPrices
+
+endif \n`
+
+itemsToStock.forEach((item) => {
+  textToCopy += `pushlist itemPrices '${item.item.price}'` + `\n`
+});
+
+textToCopy += `
+overhead "First we add items to vendor and set prices"
+foreach id in itemIDs
+    overhead id
+    
+    wait 250
+    
+    lift id
+    
+    wait 250
+        
+    drop vendor_container 1 0
+
+    wait 250
+
+    //here we set price
+    pause 500
+    if poplist 'itemPrices' front as 'price'
+        overhead 'price'
+        promptresponse 'price'
+    endif
+
+    wait 250
+    
+    ignore item
+
+
+endfor
+clearignore
+
+overhead "Your items have been added and priced, don't forget to check if prices had been set correctly."
+`
+
+return textToCopy;
+}
+
+function copyVendorStockScript(itemsToStock) {
+  const script = generateVendorStockScript(itemsToStock);
+  navigator.clipboard.writeText(script).then(() => {
+    const copyScriptBtn = document.getElementById('copyStockScriptBtn_' + props.containerID);
+    if (copyScriptBtn) {
+      const originalHTML = copyScriptBtn.innerHTML; // Store original HTML
+      copyScriptBtn.innerHTML = '<span aria-hidden="true">✓</span> Copied!';
+      window.setTimeout(() => {
+        const btn = document.getElementById('copyStockScriptBtn_' + props.containerID);
+        if (btn) btn.innerHTML = originalHTML; // Restore original HTML
+      }, 2000);
+    }
+  });
+}
+
+function exportContents(contents) {
+  const dataStr = JSON.stringify(contents, null, 2);
+  const blob = new Blob([dataStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `container_${props.containerID}_contents.json`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+function toTitleCase(str) {
+  if (!str) return '';
+
+  const smallWords = /^(a|an|and|as|at|but|by|for|from|in|into|of|on|or|the|to|with)$/i;
+
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map((word, index, array) => {
+      // Check if word starts with a special character
+      const startsWithSpecial = /^[^a-zA-Z0-9]/.test(word);
+      
+      if (startsWithSpecial && word.length > 1) {
+        // Keep the special character(s) and capitalize the first letter
+        const firstLetterIndex = word.search(/[a-zA-Z]/);
+        if (firstLetterIndex !== -1) {
+          return word.slice(0, firstLetterIndex) + 
+                word.charAt(firstLetterIndex).toUpperCase() + 
+                word.slice(firstLetterIndex + 1);
+        }
+        return word;
+      }
+      
+      // Always capitalize first and last word
+      if (index === 0 || index === array.length - 1) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }
+      
+      // Don't capitalize small words
+      if (smallWords.test(word)) {
+        return word;
+      }
+      
+      // Capitalize everything else
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(' ');
+  }
+
+</script>
+
 <template>
   <div>
     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -131,274 +398,6 @@
   </button>
   </div>
 </template>
-
-<script>
-export default {
-  name: "ContainerContentsTable",
-  props: {
-    containerID: {
-      type: Number,
-      required: true,
-    },
-    containerContents: {
-      type: Array,
-      required: true,
-      validator: (contents) =>
-        contents.every(
-          (content) =>
-            typeof content.item === "object" &&
-            typeof content.item.description === "string"
-        ),
-    },
-  },
-  data() {
-    return {
-      searchQuery: "",
-      copyStatus: "",
-      sortColumn: null,
-      sortDirection: 'asc'
-    };
-  },
-  computed: {
-    filteredContents() {
-      return this.containerContents.filter((content) =>
-        content.item.description
-          .toLowerCase()
-          .includes(this.searchQuery.toLowerCase())
-      );
-    },
-    sortedContents() {
-      if (!this.sortColumn) {
-        return this.filteredContents;
-      }
-
-      return [...this.filteredContents].sort((a, b) => {
-        let aVal = a.item[this.sortColumn];
-        let bVal = b.item[this.sortColumn];
-
-        // Handle string comparison (case-insensitive)
-        if (typeof aVal === 'string' && typeof bVal === 'string') {
-          aVal = aVal.toLowerCase();
-          bVal = bVal.toLowerCase();
-        }
-
-        let comparison = 0;
-        if (aVal > bVal) {
-          comparison = 1;
-        } else if (aVal < bVal) {
-          comparison = -1;
-        }
-
-        return this.sortDirection === 'asc' ? comparison : -comparison;
-      });
-    },
-    grandTotal() {
-      return this.sortedContents.reduce((sum, content) => {
-        return sum + content.item.price;
-      }, 0);
-    },
-  },
-  methods: {
-    sortBy(column) {
-      if (this.sortColumn === column) {
-        // Toggle direction if clicking the same column
-        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-      } else {
-        // New column, default to ascending
-        this.sortColumn = column;
-        this.sortDirection = 'asc';
-      }
-    },
-    getSortIcon(column) {
-      if (this.sortColumn !== column) {
-        return '⇅';
-      }
-      return this.sortDirection === 'asc' ? '↑' : '↓';
-    },
-    getSortDirection(column) {
-      if (this.sortColumn !== column) {
-        return 'none';
-      }
-      return this.sortDirection === 'asc' ? 'ascending' : 'descending';
-    },
-    calculateTotal(price, stack_size) {
-      return price * stack_size;
-    },
-    copyToClipboard(text) {
-      navigator.clipboard.writeText(text)
-      .then(() => {
-        console.log("Text copied to clipboard:", text);
-      })
-      .catch(err => {
-        console.error("Failed to copy text: ", err);
-      });
-    },
-    copyGetItemScript(itemID, event) {
-      const text = `
-        lift ${itemID}
-        wait 250
-        drop backpack
-      `;
-      
-      this.copyToClipboard(text);
-      
-      // Announce to screen readers
-      this.copyStatus = 'Script copied to clipboard';
-      
-      // Update button text
-      const copyScriptBtn = event.target;
-      const originalText = copyScriptBtn.textContent;
-      copyScriptBtn.textContent = 'Copied!';
-      
-      window.setTimeout(() => {
-        const btn = document.getElementById('copyGetItemScriptBtn_' + itemID);
-        if (btn) {
-          btn.textContent = originalText;
-        }
-        // Clear the announcement
-        this.copyStatus = '';
-      }, 2000);
-    },
-    generateVendorStockScript(itemsToStock) {
-       let textToCopy = `wft 500
-
-        overhead "Select vendor owned container to store items. If you select your vendor's root backpack, items will stack and prices will be incorrect."
-        setvar vendor_container
-
-        if not listexists itemIDs
-
-            createlist itemIDs
-
-          else
-
-            clearlist itemIDs
-
-        endif
-        \n`
-      
-      itemsToStock.forEach((item) => {
-        textToCopy += `pushlist itemIDs '${item.item.id}'` + `\n`
-      });
-
-      textToCopy += `if not listexists itemPrices
-
-          createlist itemPrices
-
-      else
-
-          clearlist itemPrices
-
-      endif \n`
-
-      itemsToStock.forEach((item) => {
-        textToCopy += `pushlist itemPrices '${item.item.price}'` + `\n`
-      });
-
-      textToCopy += `
-      overhead "First we add items to vendor and set prices"
-      foreach id in itemIDs
-          overhead id
-          
-          wait 250
-          
-          lift id
-          
-          wait 250
-              
-          drop vendor_container 1 0
-
-          wait 250
-
-          //here we set price
-          pause 500
-          if poplist 'itemPrices' front as 'price'
-              overhead 'price'
-              promptresponse 'price'
-          endif
-
-          wait 250
-          
-          ignore item
-
-
-      endfor
-      clearignore
-
-      overhead "Your items have been added and priced, don't forget to check if prices had been set correctly."
-      `
-
-      return textToCopy;
-    },
-
-    copyVendorStockScript(itemsToStock) {
-      const script = this.generateVendorStockScript(itemsToStock);
-      navigator.clipboard.writeText(script).then(() => {
-        const copyScriptBtn = document.getElementById('copyStockScriptBtn_' + this.containerID);
-        if (copyScriptBtn) {
-          const originalHTML = copyScriptBtn.innerHTML; // Store original HTML
-          copyScriptBtn.innerHTML = '<span aria-hidden="true">✓</span> Copied!';
-          window.setTimeout(() => {
-            const btn = document.getElementById('copyStockScriptBtn_' + this.containerID);
-            if (btn) btn.innerHTML = originalHTML; // Restore original HTML
-          }, 2000);
-        }
-      });
-    },
-    exportContents(contents) {
-      const dataStr = JSON.stringify(contents, null, 2);
-      const blob = new Blob([dataStr], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `container_${this.containerID}_contents.json`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    },
-    toTitleCase(str) {
-      if (!str) return '';
-      
-      const smallWords = /^(a|an|and|as|at|but|by|for|from|in|into|of|on|or|the|to|with)$/i;
-      
-      return str
-        .toLowerCase()
-        .split(' ')
-        .map((word, index, array) => {
-          // Check if word starts with a special character
-          const startsWithSpecial = /^[^a-zA-Z0-9]/.test(word);
-          
-          if (startsWithSpecial && word.length > 1) {
-            // Keep the special character(s) and capitalize the first letter
-            const firstLetterIndex = word.search(/[a-zA-Z]/);
-            if (firstLetterIndex !== -1) {
-              return word.slice(0, firstLetterIndex) + 
-                    word.charAt(firstLetterIndex).toUpperCase() + 
-                    word.slice(firstLetterIndex + 1);
-            }
-            return word;
-          }
-          
-          // Always capitalize first and last word
-          if (index === 0 || index === array.length - 1) {
-            return word.charAt(0).toUpperCase() + word.slice(1);
-          }
-          
-          // Don't capitalize small words
-          if (smallWords.test(word)) {
-            return word;
-          }
-          
-          // Capitalize everything else
-          return word.charAt(0).toUpperCase() + word.slice(1);
-        })
-        .join(' ');
-    }
-   
-  }
- 
-};
-</script>
 
 <style scoped>
 .sortable-header {
