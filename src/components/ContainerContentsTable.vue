@@ -375,6 +375,8 @@ function toTitleCase(str) {
       </tfoot>
     </table>
     </div>
+    <!--
+    This export button is currently disabled and is only used for debugging purposes.
     <button 
       type="button" 
       class="btn w-100 btn-primary mb-4" 
@@ -383,7 +385,7 @@ function toTitleCase(str) {
       aria-describedby="exportHelp"
     >
       <span aria-hidden="true">💾</span> Export Contents
-    </button>
+    </button>-->
     <div id="exportHelp" class="visually-hidden">
       Downloads a JSON file with all items in this container
     </div>
