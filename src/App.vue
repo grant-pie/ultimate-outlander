@@ -791,7 +791,15 @@ function generateCatalogLootScript() {
 
   wait 250
   
+  dclick container_to_catalog
+
+  wait 250
+
   setvar take_container
+
+  wait 250
+  
+  dclick take_container
 
   wait 250
 
