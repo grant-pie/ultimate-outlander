@@ -3,5 +3,5 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/ultimate-outlander/', // Replace with your actual repository name
+  base: '/', // Replace with your actual repository name
 })
